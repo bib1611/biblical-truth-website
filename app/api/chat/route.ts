@@ -49,6 +49,13 @@ export async function POST(request: Request) {
 
     console.log('Received messages:', messages.length);
 
+    // For now, always use fallback until model access is confirmed
+    console.log('Using smart fallback responses');
+    return NextResponse.json({
+      message: getFallbackResponse(messages)
+    });
+
+    /* Disabled until model access confirmed
     if (!apiKey) {
       console.log('No API key, using fallback');
       // Fallback responses when API key not configured
@@ -56,6 +63,7 @@ export async function POST(request: Request) {
         message: getFallbackResponse(messages[messages.length - 1].content)
       });
     }
+    */
 
     // Filter out system messages and only include user/assistant
     const apiMessages = messages
@@ -102,8 +110,18 @@ export async function POST(request: Request) {
   }
 }
 
-function getFallbackResponse(userMessage: string): string {
+function getFallbackResponse(messages: Message[]): string {
+  const userMessage = messages[messages.length - 1].content;
   const lower = userMessage.toLowerCase();
+
+  // Handle greetings and simple messages
+  if (lower === 'hello' || lower === 'hi' || lower === 'hey' || lower.includes('what can you')) {
+    return "I help men find the truth they've been avoiding. What's the real reason you're here? Struggling with marriage? Porn? Weak faith? Tell me the truth.";
+  }
+
+  if (lower.includes('help') || lower.includes('need')) {
+    return "Most men who come here are dealing with one of three things: marriage problems, sexual sin, or spiritual weakness. Which one brought you here?";
+  }
 
   // Detect intent and provide targeted responses
   if (lower.includes('porn') || lower.includes('lust') || lower.includes('addiction')) {
