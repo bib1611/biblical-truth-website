@@ -6,53 +6,51 @@ export default function Home() {
     <>
       <Navigation />
 
-      {/* Hero - Dan Koe Style */}
-      <section className="min-h-screen flex items-center bg-black pt-20 pb-32">
-        <div className="max-w-5xl mx-auto px-6 w-full">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl font-bold mb-8 leading-tight tracking-tight">
-              Most Christian Men Are <br/><span className="bg-gradient-to-r from-[#ff6b00] to-[#ff8533] bg-clip-text text-transparent">Spiritually Weak</span>
+      {/* Hero - Aggressive */}
+      <section className="min-h-[85vh] flex items-center bg-black pt-20 pb-16">
+        <div className="max-w-6xl mx-auto px-6 w-full">
+          <div className="max-w-4xl">
+            <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-[1.1] tracking-tight">
+              YOUR CHURCH IS<br/>
+              <span className="bg-gradient-to-r from-[#ff6b00] to-[#ff8533] bg-clip-text text-transparent">LYING TO YOU</span>
             </h1>
-            <p className="text-xl md:text-2xl text-[#999] mb-12 leading-relaxed max-w-2xl">
-              Comfortable Christianity created passive men. The Bible demands warriors. This is biblical truth without compromise.
+            <p className="text-2xl md:text-3xl text-[#ccc] mb-8 leading-tight max-w-3xl font-medium">
+              Comfortable Christianity created weak men. The Bible demands warriors.
+            </p>
+            <p className="text-lg text-[#888] mb-12 max-w-2xl">
+              320,000+ men downloaded the truth. Your pastor won't teach this.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-16">
-              <Link href="/vault" className="btn-hostile text-center px-8 py-4">
-                Get The Vault - $365
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/vault" className="btn-hostile text-center px-10 py-5 text-lg font-bold">
+                GET THE VAULT - $365
               </Link>
-              <Link href="#free-guide" className="btn-secondary text-center px-8 py-4">
-                Start with Free Guide
+              <Link href="#products" className="btn-secondary text-center px-10 py-5 text-lg">
+                See All Products
               </Link>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-6 text-sm text-[#666]">
-              <span className="font-semibold text-white">320K+</span>
-              <span>downloads</span>
-              <span className="opacity-50">•</span>
-              <span className="font-semibold text-white">20K+</span>
-              <span>subscribers</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Simple Value Prop */}
-      <section className="py-20 bg-[#0a0a0a]">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6">The church preaches a Jesus who never offends and never costs anything.</h2>
-          <p className="text-lg text-[#999] leading-relaxed">
-            This is biblical truth without compromise. For men ready to reject comfortable Christianity.
+      {/* Value Ladder Strip */}
+      <section className="py-12 bg-gradient-to-r from-[#ff6b00] to-[#ff8533]">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <p className="text-black text-xl md:text-2xl font-bold mb-4">
+            Free Guide → $5/month Substack → $365 Vault
+          </p>
+          <p className="text-black/80 text-lg">
+            Join 20,000+ men rejecting comfortable Christianity
           </p>
         </div>
       </section>
 
       {/* Products - Modern Pricing */}
-      <section className="py-32 bg-black">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Choose Your Path</h2>
-            <p className="text-[#999] text-lg">From curious to committed</p>
+      <section id="products" className="py-24 bg-black">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">Choose Your Level</h2>
+            <p className="text-[#888] text-xl">Start free. Go deeper. Transform completely.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -129,25 +127,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Simple Social Proof */}
-      <section className="py-20 bg-[#0a0a0a]">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <p className="text-xl text-[#999] italic mb-2">
-            "Destroyed every comfortable lie I believed."
-          </p>
-          <p className="text-sm text-[#666]">— Marcus T.</p>
-        </div>
-      </section>
-
       {/* Free Guide CTA */}
-      <section id="free-guide" className="py-32 bg-gradient-to-br from-[#ff6b00] to-[#ff8533]">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black">Start Here</h2>
-          <p className="text-xl mb-4 text-black/80">
-            Download "Satan's 5 Deadliest Lies About Biblical Manhood"
+      <section id="free-guide" className="py-20 bg-gradient-to-br from-[#ff6b00] to-[#ff8533]">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-black">Start With The Truth</h2>
+          <p className="text-2xl mb-3 text-black/90 font-semibold">
+            "Satan's 5 Deadliest Lies About Biblical Manhood"
           </p>
-          <p className="mb-12 text-black/70">
-            Free. No credit card. Just truth.
+          <p className="mb-10 text-black/70 text-lg">
+            320,000+ downloads. Free. No credit card.
           </p>
 
           <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
