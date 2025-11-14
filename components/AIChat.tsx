@@ -35,7 +35,7 @@ export default function AIChat() {
     setInput('');
 
     // Add user message to state
-    const newMessages = [...messages, { role: 'user', content: userMessage }];
+    const newMessages: Message[] = [...messages, { role: 'user', content: userMessage }];
     setMessages(newMessages);
     setIsLoading(true);
 
