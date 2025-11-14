@@ -47,12 +47,25 @@ export async function POST(request: Request) {
     const { messages } = await request.json();
     const apiKey = process.env.ANTHROPIC_API_KEY;
 
+    console.log('Received messages:', messages.length);
+
     if (!apiKey) {
+      console.log('No API key, using fallback');
       // Fallback responses when API key not configured
       return NextResponse.json({
         message: getFallbackResponse(messages[messages.length - 1].content)
       });
     }
+
+    // Filter out system messages and only include user/assistant
+    const apiMessages = messages
+      .filter((msg: Message) => msg.role === 'user' || msg.role === 'assistant')
+      .map((msg: Message) => ({
+        role: msg.role,
+        content: msg.content
+      }));
+
+    console.log('Calling Anthropic API with', apiMessages.length, 'messages');
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -65,23 +78,27 @@ export async function POST(request: Request) {
         model: 'claude-3-5-sonnet-20241022',
         max_tokens: 300,
         system: SYSTEM_PROMPT,
-        messages: messages.map((msg: Message) => ({
-          role: msg.role,
-          content: msg.content
-        }))
+        messages: apiMessages
       })
     });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Anthropic API error:', errorData);
+      throw new Error(`API error: ${response.status}`);
+    }
 
     const data = await response.json();
     const assistantMessage = data.content[0].text;
 
+    console.log('AI response received');
     return NextResponse.json({ message: assistantMessage });
 
   } catch (error) {
     console.error('Chat API error:', error);
     return NextResponse.json({
-      message: "What specific challenge brought you here today? I can help you find the right resource."
-    });
+      message: "I'm having trouble connecting right now. Let me ask directly: what's your biggest struggle? Marriage? Sexual purity? Spiritual growth? Tell me and I'll point you to the right resource."
+    }, { status: 500 });
   }
 }
 

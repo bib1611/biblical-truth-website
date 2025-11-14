@@ -33,7 +33,10 @@ export default function AIChat() {
 
     const userMessage = input.trim();
     setInput('');
-    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+
+    // Add user message to state
+    const newMessages = [...messages, { role: 'user', content: userMessage }];
+    setMessages(newMessages);
     setIsLoading(true);
 
     try {
@@ -41,14 +44,17 @@ export default function AIChat() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          messages: [...messages, { role: 'user', content: userMessage }]
+          messages: newMessages
         })
       });
 
       const data = await response.json();
-      setMessages(prev => [...prev, { role: 'assistant', content: data.message }]);
+
+      // Add assistant response
+      setMessages([...newMessages, { role: 'assistant', content: data.message }]);
     } catch (error) {
-      setMessages(prev => [...prev, {
+      console.error('Chat error:', error);
+      setMessages([...newMessages, {
         role: 'assistant',
         content: "I'm having trouble connecting. But I can still help - what specific challenge are you facing?"
       }]);
