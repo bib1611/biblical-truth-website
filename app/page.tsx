@@ -37,39 +37,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Problem Cards - Clean Grid */}
-      <section className="py-32 bg-[#0a0a0a]">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">The Problem With Modern Christianity</h2>
-          <p className="text-center text-[#999] mb-20 text-lg max-w-2xl mx-auto">
-            The church preaches a Jesus who never offends and never costs anything
+      {/* Simple Value Prop */}
+      <section className="py-20 bg-[#0a0a0a]">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-6">The church preaches a Jesus who never offends and never costs anything.</h2>
+          <p className="text-lg text-[#999] leading-relaxed">
+            This is biblical truth without compromise. For men ready to reject comfortable Christianity.
           </p>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-[#111] border border-[#222] p-8 rounded-lg hover:border-[#333] transition-colors">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#ff6b00] to-[#ff8533] rounded-lg mb-6"></div>
-              <h3 className="text-xl font-bold mb-4">The Lie</h3>
-              <p className="text-[#999] leading-relaxed">
-                Be nice. Don't make waves. Submit to authority that validates comfortable theology.
-              </p>
-            </div>
-
-            <div className="bg-[#111] border border-[#222] p-8 rounded-lg hover:border-[#333] transition-colors">
-              <div className="w-10 h-10 bg-[#222] rounded-lg mb-6"></div>
-              <h3 className="text-xl font-bold mb-4">The Result</h3>
-              <p className="text-[#999] leading-relaxed">
-                Passive men. Porn addictions. Failed marriages. Sons without fathers. Spiritual cowards.
-              </p>
-            </div>
-
-            <div className="bg-[#111] border border-[#222] p-8 rounded-lg hover:border-[#333] transition-colors">
-              <div className="w-10 h-10 bg-white rounded-lg mb-6"></div>
-              <h3 className="text-xl font-bold mb-4">The Truth</h3>
-              <p className="text-[#999] leading-relaxed">
-                Jesus carried a cross. Paul was beheaded. Biblical manhood costs everything.
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -155,26 +129,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials - Clean */}
-      <section className="py-32 bg-[#0a0a0a]">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold mb-16 text-center">What Men Are Saying</h2>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-[#111] border border-[#222] p-8 rounded-xl">
-              <p className="text-[#999] mb-6 leading-relaxed text-lg">
-                "Destroyed every comfortable lie I believed. Best $365 I've spent."
-              </p>
-              <p className="text-sm text-[#666]">— Marcus T.</p>
-            </div>
-
-            <div className="bg-[#111] border border-[#222] p-8 rounded-xl">
-              <p className="text-[#999] mb-6 leading-relaxed text-lg">
-                "My marriage changed when I stopped being passive. Finally, real biblical masculinity."
-              </p>
-              <p className="text-sm text-[#666]">— David R.</p>
-            </div>
-          </div>
+      {/* Simple Social Proof */}
+      <section className="py-20 bg-[#0a0a0a]">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <p className="text-xl text-[#999] italic mb-2">
+            "Destroyed every comfortable lie I believed."
+          </p>
+          <p className="text-sm text-[#666]">— Marcus T.</p>
         </div>
       </section>
 
