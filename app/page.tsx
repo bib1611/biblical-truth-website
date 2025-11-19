@@ -83,7 +83,7 @@ export default function Home() {
             </div>
 
             {/* Substack */}
-            <div className="bg-[#111] border border-[#222] p-8 rounded-xl hover:border-[#333] transition-colors">
+            <div className="bg-[#111] border border-[#222] p-8 rounded-xl">
               <h3 className="text-2xl font-bold mb-2">Substack</h3>
               <div className="flex items-baseline gap-2 mb-6">
                 <span className="text-5xl font-bold">$5</span>
