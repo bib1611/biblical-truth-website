@@ -11,7 +11,8 @@ export default function RadioPage() {
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     // Final Fight Bible Radio stream URL
-    const STREAM_URL = 'https://stream.radio.co/s2c893310b/listen';
+    // Try multiple stream URLs as fallback
+    const STREAM_URL = 'http://stream.radio.co/s3ee3322e0/listen';
 
     useEffect(() => {
         // Start timer when playing

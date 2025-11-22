@@ -10,7 +10,8 @@ export default function Home() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const STREAM_URL = 'https://stream.radio.co/s2c893310b/listen';
+  // Try multiple stream URLs as fallback
+  const STREAM_URL = 'http://stream.radio.co/s3ee3322e0/listen';
 
   useEffect(() => {
     if (isPlaying && timeRemaining > 0) {
