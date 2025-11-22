@@ -1,8 +1,23 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useRef } from 'react';
 
 export default function RadioPage() {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = useRef<HTMLAudioElement>(null);
+
+    const togglePlay = () => {
+        if (audioRef.current) {
+            if (isPlaying) {
+                audioRef.current.pause();
+            } else {
+                audioRef.current.play();
+            }
+            setIsPlaying(!isPlaying);
+        }
+    };
+
     return (
         <>
             <header className="mb-8">
@@ -16,30 +31,51 @@ export default function RadioPage() {
             <div className="max-w-4xl mx-auto">
                 {/* Player Card */}
                 <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
-                    {/* Listen Live CTA */}
-                    <div className="aspect-video bg-gradient-to-br from-slate-900 via-amber-900/20 to-orange-900/20 flex items-center justify-center relative">
-                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1478737270239-2f02b77ac6d5?q=80&w=2666&auto=format&fit=crop')] bg-cover bg-center opacity-10"></div>
+                    {/* Custom Audio Player */}
+                    <div className="bg-gradient-to-br from-slate-900 via-amber-900/20 to-orange-900/20 p-8">
+                        <div className="max-w-2xl mx-auto">
+                            <div className="text-center mb-6">
+                                <div className="text-6xl mb-4">📻</div>
+                                <h2 className="text-3xl font-black text-white mb-2">Final Fight Bible Radio</h2>
+                                <p className="text-gray-300">24/7 uncompromising KJV teaching</p>
+                            </div>
 
-                        <div className="relative z-10 text-center p-8">
-                            <div className="text-6xl mb-6">📻</div>
-                            <h2 className="text-3xl font-black text-white mb-4">Final Fight Bible Radio</h2>
-                            <p className="text-gray-300 mb-8 max-w-md mx-auto">
-                                24/7 uncompromising KJV teaching. Click below to open the player.
-                            </p>
+                            {/* Audio Player Controls */}
+                            <div className="bg-slate-950/80 rounded-xl p-6 border border-white/10">
+                                <div className="flex items-center justify-center gap-6">
+                                    <button
+                                        onClick={togglePlay}
+                                        className="w-20 h-20 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 rounded-full flex items-center justify-center transition-all shadow-lg shadow-amber-500/30 hover:scale-105"
+                                    >
+                                        {isPlaying ? (
+                                            <svg className="w-10 h-10 text-black" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                                            </svg>
+                                        ) : (
+                                            <svg className="w-10 h-10 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M8 5v14l11-7z" />
+                                            </svg>
+                                        )}
+                                    </button>
+                                </div>
 
-                            <a
-                                href="https://tunein.com/radio/Final-Fight-Bible-Radio-s133891/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-black font-black text-xl px-10 py-5 rounded-xl transition-all shadow-2xl hover:scale-105"
-                            >
-                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M8 5v14l11-7z" />
-                                </svg>
-                                LISTEN LIVE
-                            </a>
+                                <div className="mt-6 text-center">
+                                    <div className="flex items-center justify-center gap-2 mb-2">
+                                        <div className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-green-500 animate-pulse' : 'bg-gray-500'}`}></div>
+                                        <p className="text-sm font-semibold text-gray-400">
+                                            {isPlaying ? 'LIVE - NOW PLAYING' : 'Ready to stream'}
+                                        </p>
+                                    </div>
+                                    <p className="text-white font-bold text-lg">Final Fight Bible Radio</p>
+                                    <p className="text-gray-400 text-sm">Verse-by-verse biblical teaching</p>
+                                </div>
 
-                            <p className="text-sm text-gray-500 mt-4">Opens in TuneIn (free streaming app)</p>
+                                <audio
+                                    ref={audioRef}
+                                    src="https://c13.radioboss.fm:8639/stream"
+                                    preload="none"
+                                />
+                            </div>
                         </div>
                     </div>
 
