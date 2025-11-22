@@ -1,160 +1,232 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 export default function Home() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [showSignupWall, setShowSignupWall] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(300); // 5 minutes
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const STREAM_URL = 'https://stream.radio.co/s2c893310b/listen';
+
+  useEffect(() => {
+    if (isPlaying && timeRemaining > 0) {
+      timerRef.current = setInterval(() => {
+        setTimeRemaining((prev) => {
+          if (prev <= 1) {
+            setShowSignupWall(true);
+            if (audioRef.current) audioRef.current.pause();
+            setIsPlaying(false);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isPlaying, timeRemaining]);
+
+  const togglePlay = () => {
+    if (showSignupWall) return;
+
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
   return (
-    <main className="min-h-screen bg-black text-white font-sans selection:bg-[#FFD700] selection:text-black">
-      {/* Top Bar */}
-      <div className="w-full border-b border-[#222] bg-[#0a0a0a]">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex justify-end">
-          <Link
-            href="/login"
-            className="text-sm font-bold text-[#666] hover:text-white transition-colors flex items-center gap-2"
-          >
-            MEMBER LOGIN <span className="text-[#FFD700]">→</span>
-          </Link>
-        </div>
+    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
+      <audio ref={audioRef} src={STREAM_URL} />
+
+      {/* Animated background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-30">
+        <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-yellow-500/10 to-orange-600/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-red-500/10 to-pink-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
       </div>
 
-      {/* Hero Section */}
-      <section className="pt-20 pb-16 md:pt-32 md:pb-24">
-        <div className="max-w-3xl mx-auto px-6">
-          <h1 className="text-4xl md:text-6xl font-black leading-[1.1] mb-8 tracking-tight">
-            "I got kicked out of Bible school for preaching what the King James Bible actually says about manhood."
-          </h1>
-
-          <p className="text-xl md:text-2xl text-[#888] font-medium leading-relaxed mb-12">
-            They wanted me to be "nice." They wanted me to compromise. I chose to tell the truth instead.
-          </p>
-
-          <div className="prose prose-invert prose-lg text-[#ccc]">
-            <p className="mb-6">
-              <strong className="text-white">Dear Christian Man,</strong>
-            </p>
-            <p className="mb-6">
-              If you look around your church and feel like something is missing... if you're tired of "soft" sermons that sound more like therapy than theology... if you're wondering where the men have gone...
-            </p>
-            <p className="mb-8">
-              <span className="text-white font-bold border-b-2 border-[#FFD700]">You are not alone.</span>
-            </p>
-            <p className="mb-6">
-              I'm a preacher with calluses. I learned biblical truth the hard way—through 22 years of marriage, raising children, working with my hands, and refusing to compromise when the cost was high.
-            </p>
-            <p className="mb-8">
-              The modern church has been feminized. It tells men to be passive. To "share their feelings" instead of leading their families. To apologize for their God-given authority.
-            </p>
-
-            <div className="bg-[#111] border-l-4 border-[#DC143C] p-6 my-8">
-              <p className="text-white font-bold mb-4">The result?</p>
-              <ul className="space-y-3 text-[#999] list-none pl-0">
-                <li className="flex items-start gap-3">
-                  <span className="text-[#DC143C]">❌</span>
-                  Men who abdicate their role as spiritual leaders.
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#DC143C]">❌</span>
-                  Wives who are forced to lead because their husbands won't.
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#DC143C]">❌</span>
-                  Children who grow up without a strong example of biblical masculinity.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* The Hub Section */}
-      <section className="py-20 bg-[#0a0a0a] border-y border-[#222]">
-        <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-black mb-6">It's Time to Stop Apologizing.</h2>
-          <p className="text-lg text-[#888] mb-12">
-            The Biblical Man Hub is not for everyone. It is a command center for men who are done with games. Men who want the raw, undiluted truth of Scripture.
-          </p>
-
-          <div className="grid sm:grid-cols-2 gap-6 mb-12">
-            <div className="bg-black border border-[#222] p-6 rounded-lg">
-              <div className="text-2xl mb-3">⚔️</div>
-              <h3 className="text-xl font-bold text-white mb-2">The War Room</h3>
-              <p className="text-[#666] text-sm">Deep KJV Bible study tools to sharpen your sword.</p>
-            </div>
-            <div className="bg-black border border-[#222] p-6 rounded-lg">
-              <div className="text-2xl mb-3">📻</div>
-              <h3 className="text-xl font-bold text-white mb-2">King's Radio</h3>
-              <p className="text-[#666] text-sm">24/7 streaming of uncompromising biblical teaching.</p>
-            </div>
-            <div className="bg-black border border-[#222] p-6 rounded-lg">
-              <div className="text-2xl mb-3">🧠</div>
-              <h3 className="text-xl font-bold text-white mb-2">Intel Articles</h3>
-              <p className="text-[#666] text-sm">Tactical guides on marriage, fatherhood, and leadership.</p>
-            </div>
-            <div className="bg-black border border-[#222] p-6 rounded-lg">
-              <div className="text-2xl mb-3">🛡️</div>
-              <h3 className="text-xl font-bold text-white mb-2">The Armory</h3>
-              <p className="text-[#666] text-sm">Resources to equip you for the spiritual battle.</p>
-            </div>
-          </div>
-
-          <p className="text-lg text-white font-medium">
-            I am inviting you to join 20,000+ men who have decided to stop being passive and start leading.
-          </p>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-b from-black to-[#111]">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <div className="inline-block bg-[#FFD700] text-black text-xs font-black px-3 py-1 rounded mb-6">
-            LIMITED TIME OFFER
-          </div>
-
-          <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
-            Get Full Access to<br />The Biblical Man Hub
-          </h2>
-
-          <p className="text-xl text-[#888] mb-10 max-w-xl mx-auto">
-            Access all resources, the War Room, King's Radio, Intel Articles, and The Armory for just <span className="text-white font-bold underline decoration-[#FFD700]">$3</span>.
-          </p>
-
-          <div className="bg-[#111] border border-[#333] p-8 rounded-2xl max-w-md mx-auto mb-12">
-            <ul className="text-left space-y-4 mb-8">
-              <li className="flex items-center gap-3 text-[#ccc]">
-                <svg className="w-5 h-5 text-[#FFD700]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                One-time payment
-              </li>
-              <li className="flex items-center gap-3 text-[#ccc]">
-                <svg className="w-5 h-5 text-[#FFD700]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                Lifetime access
-              </li>
-              <li className="flex items-center gap-3 text-[#ccc]">
-                <svg className="w-5 h-5 text-[#FFD700]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                Instant email instructions
-              </li>
-            </ul>
-
-            <a
-              href="https://buy.stripe.com/3cIaEYgbC1uh5I45VIcMM26"
-              className="block w-full bg-[#FFD700] hover:bg-[#ffe44d] text-black font-black text-xl py-5 rounded-lg transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(255,215,0,0.3)]"
+      <div className="relative z-10">
+        {/* Top Bar */}
+        <div className="w-full border-b border-gray-800 bg-black/50 backdrop-blur-xl">
+          <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div className="text-xl font-black">THE BIBLICAL MAN</div>
+            <Link
+              href="/login"
+              className="text-sm font-bold text-gray-400 hover:text-yellow-500 transition-colors flex items-center gap-2"
             >
-              GET ACCESS NOW ($3)
-            </a>
-            <p className="text-xs text-[#666] mt-4">
-              Secure payment via Stripe. Instant access.
-            </p>
-          </div>
-
-          <div className="text-[#666] text-sm">
-            Already a member? <Link href="/login" className="text-[#FFD700] hover:underline">Login here</Link>
+              MEMBER LOGIN <span className="text-yellow-500">→</span>
+            </Link>
           </div>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="py-12 border-t border-[#222] bg-black text-center">
-        <p className="text-[#444] text-sm">
-          © 2024 The Biblical Man. Uncomfortable truth for comfortable Christians.
-        </p>
-      </footer>
+        {/* Hero Section */}
+        <section className="pt-20 pb-16">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h1 className="text-5xl md:text-7xl font-black leading-tight mb-6">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-yellow-200 to-yellow-500">
+                  I got kicked out of Bible school
+                </span>
+              </h1>
+              <p className="text-2xl md:text-3xl text-gray-300 font-medium max-w-3xl mx-auto">
+                for preaching what the King James Bible actually says about manhood
+              </p>
+            </div>
+
+            {/* Radio Player */}
+            <div className="max-w-3xl mx-auto mb-16">
+              <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h3 className="text-xl font-black text-white mb-1">FINAL FIGHT BIBLE RADIO</h3>
+                      <p className="text-gray-400 text-sm">24/7 Uncompromising Biblical Teaching</p>
+                    </div>
+                    {isPlaying && (
+                      <div className="flex items-center gap-2 bg-red-600 px-3 py-1 rounded-full">
+                        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                        <span className="text-white text-xs font-bold">LIVE</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-6">
+                    <button
+                      onClick={togglePlay}
+                      disabled={showSignupWall}
+                      className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center text-black hover:scale-110 transition-transform shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isPlaying ? (
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                        </svg>
+                      ) : (
+                        <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      )}
+                    </button>
+
+                    <div className="flex-1">
+                      {!showSignupWall ? (
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-400">Free Preview Time</span>
+                            <span className="text-yellow-500 font-bold">{formatTime(timeRemaining)}</span>
+                          </div>
+                          <div className="w-full bg-gray-800 rounded-full h-2">
+                            <div
+                              className="bg-gradient-to-r from-yellow-500 to-orange-600 h-2 rounded-full transition-all"
+                              style={{ width: `${(timeRemaining / 300) * 100}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="text-center py-4">
+                          <p className="text-white font-bold mb-2">Want to keep listening?</p>
+                          <a
+                            href="https://buy.stripe.com/3cIaEYgbC1uh5I45VIcMM26"
+                            className="inline-block bg-gradient-to-r from-yellow-500 to-orange-600 text-black font-black px-6 py-2 rounded-lg hover:scale-105 transition-transform"
+                          >
+                            GET ACCESS ($3)
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="max-w-3xl mx-auto space-y-8 text-lg text-gray-300 leading-relaxed">
+              <p>
+                <strong className="text-white">Dear Christian Man,</strong>
+              </p>
+              <p>
+                If you look around your church and feel like something is missing... if you're tired of "soft" sermons that sound more like therapy than theology... if you're wondering where the men have gone...
+              </p>
+              <p className="text-white font-bold">
+                You are not alone.
+              </p>
+              <p>
+                I'm a preacher with calluses. I learned biblical truth the hard way—through 22 years of marriage, raising children, working with my hands, and refusing to compromise when the cost was high.
+              </p>
+              <p>
+                The modern church has been feminized. It tells men to be passive. To "share their feelings" instead of leading their families. To apologize for their God-given authority.
+              </p>
+
+              <div className="bg-red-900/20 border-l-4 border-red-600 p-6 my-8">
+                <p className="text-white font-bold mb-4">The result?</p>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-3">
+                    <span className="text-red-500">❌</span>
+                    Men who abdicate their role as spiritual leaders
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-red-500">❌</span>
+                    Wives forced to lead because their husbands won't
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-red-500">❌</span>
+                    Children who grow up without biblical masculinity
+                  </li>
+                </ul>
+              </div>
+
+              <h2 className="text-3xl font-black text-white">It's Time to Stop Apologizing.</h2>
+              <p>
+                The Biblical Man Hub is not for everyone. It's a command center for men who are done with games. Men who want the raw, undiluted truth of Scripture.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Features */}
+        <section className="py-20 border-y border-gray-800 bg-black/30">
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="grid md:grid-cols-3 gap-8 mb-16">
+              {[
+                { icon: '⚔️', title: 'The War Room', desc: 'Deep KJV Bible study tools to sharpen your sword' },
+                { icon: '📻', title: "King's Radio", desc: '24/7 streaming of uncompromising biblical teaching' },
+                { icon: '📚', title: 'The Library', desc: 'Tactical guides on marriage, fatherhood, and leadership' }
+              ].map((item, i) => (
+                <div key={i} className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 p-8 rounded-xl hover:border-yellow-500/50 transition-all">
+                  <div className="text-4xl mb-4">{item.icon}</div>
+                  <h3 className="text-xl font-black text-white mb-2">{item.title}</h3>
+                  <p className="text-gray-400 text-sm">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center">
+              <a
+                href="https://buy.stripe.com/3cIaEYgbC1uh5I45VIcMM26"
+                className="inline-block bg-gradient-to-r from-yellow-500 to-orange-600 text-black font-black text-xl px-12 py-5 rounded-xl hover:scale-105 transition-transform shadow-2xl"
+              >
+                GET ACCESS NOW ($3)
+              </a>
+              <p className="text-gray-400 text-sm mt-4">One-time payment • Lifetime access • Instant email with login</p>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
