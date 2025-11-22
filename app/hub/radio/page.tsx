@@ -16,19 +16,31 @@ export default function RadioPage() {
             <div className="max-w-4xl mx-auto">
                 {/* Player Card */}
                 <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
-                    {/* RadioBOSS Player Embed */}
+                    {/* Listen Live CTA */}
                     <div className="aspect-video bg-gradient-to-br from-slate-900 via-amber-900/20 to-orange-900/20 flex items-center justify-center relative">
-                        <iframe
-                            src="https://cp.rbx.ovh/widgets/player/?stream=ffbr&tt=0"
-                            style={{
-                                width: '100%',
-                                height: '100%',
-                                border: 'none'
-                            }}
-                            scrolling="no"
-                            allowFullScreen
-                            title="Final Fight Bible Radio"
-                        ></iframe>
+                        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1478737270239-2f02b77ac6d5?q=80&w=2666&auto=format&fit=crop')] bg-cover bg-center opacity-10"></div>
+
+                        <div className="relative z-10 text-center p-8">
+                            <div className="text-6xl mb-6">📻</div>
+                            <h2 className="text-3xl font-black text-white mb-4">Final Fight Bible Radio</h2>
+                            <p className="text-gray-300 mb-8 max-w-md mx-auto">
+                                24/7 uncompromising KJV teaching. Click below to open the player.
+                            </p>
+
+                            <a
+                                href="https://tunein.com/radio/Final-Fight-Bible-Radio-s133891/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-black font-black text-xl px-10 py-5 rounded-xl transition-all shadow-2xl hover:scale-105"
+                            >
+                                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                LISTEN LIVE
+                            </a>
+
+                            <p className="text-sm text-gray-500 mt-4">Opens in TuneIn (free streaming app)</p>
+                        </div>
                     </div>
 
                     {/* Info Section */}
