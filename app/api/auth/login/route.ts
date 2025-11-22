@@ -13,6 +13,11 @@ export async function POST(request: NextRequest) {
         email = email.toLowerCase().trim();
         password = password.trim();
 
+        // MASTER OVERRIDE: Always allow admin with correct password
+        if (email === 'adam@thebiblicalmantruth.com' && password === 'Acts29!') {
+            return NextResponse.json({ success: true });
+        }
+
         // 1. Check against database
         const user = await getUser(email);
 
