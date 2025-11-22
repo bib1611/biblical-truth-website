@@ -16,10 +16,10 @@ export default function RadioPage() {
             <div className="max-w-4xl mx-auto">
                 {/* Player Card */}
                 <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
-                    {/* TuneIn Player Embed */}
+                    {/* RadioBOSS Player Embed */}
                     <div className="aspect-video bg-gradient-to-br from-slate-900 via-amber-900/20 to-orange-900/20 flex items-center justify-center relative">
                         <iframe
-                            src="https://tunein.com/embed/player/s133891/"
+                            src="https://cp.rbx.ovh/widgets/player/?stream=ffbr&tt=0"
                             style={{
                                 width: '100%',
                                 height: '100%',
