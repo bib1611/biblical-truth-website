@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { Resend } from 'resend';
-import { createUser } from '@/lib/db';
+import { createUser, createMembership } from '@/lib/db';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '');
 
@@ -46,11 +46,22 @@ export async function POST(request: NextRequest) {
             const password = `Warrior${randomDigits}`;
 
             // 2. Save to Database
-            const userCreated = await createUser(email, password);
+            const userResult = await createUser(email, password);
 
-            if (!userCreated) {
+            if (!userResult) {
                 console.error(`Failed to create user in DB for ${email}`);
-                // We continue to try sending email, maybe they already exist?
+            } else {
+                // NEW: Create membership record
+                const userId = userResult.id;
+                const membershipCreated = await createMembership(
+                    userId,
+                    'gate_pass',
+                    session.id
+                );
+
+                if (!membershipCreated) {
+                    console.error(`Failed to create membership for user ${userId}`);
+                }
             }
 
             // 3. Send Email
