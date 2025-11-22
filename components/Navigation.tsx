@@ -16,9 +16,8 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
-        isScrolled ? 'bg-black/95 backdrop-blur-lg border-b border-[#222]' : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${isScrolled ? 'bg-black/95 backdrop-blur-lg border-b border-[#222]' : 'bg-transparent'
+        }`}
     >
       <div className="max-w-5xl mx-auto px-6">
         <div className="flex items-center justify-between h-20">
@@ -37,6 +36,9 @@ export default function Navigation() {
             </Link>
             <Link href="/about" className="text-[#999] hover:text-white transition-colors text-sm">
               About
+            </Link>
+            <Link href="/login" className="text-[#999] hover:text-white transition-colors text-sm">
+              Member Login
             </Link>
             <Link
               href="/vault"
