@@ -40,14 +40,17 @@ export default function ArmoryPage() {
       <section className="relative z-10 px-6 py-16 md:py-24 border-b border-white/10">
         <div className="max-w-4xl mx-auto text-center">
           <div className="text-6xl mb-6">🗡️</div>
-          <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-black mb-3 leading-tight">
             The Armory
           </h1>
+          <p className="text-xl text-gray-500 mb-6 uppercase tracking-wide font-bold">
+            Premium Courses & Study Guides
+          </p>
           <p className="text-2xl text-gray-300 mb-4 max-w-2xl mx-auto leading-relaxed">
-            Premium resources for the battles you're actually fighting.
+            In-depth training for the battles you're actually fighting.
           </p>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            No fluff. No theory. Just weapons-grade training for fathers, warriors, and students of the Word.
+            Deep-dive courses for fathers, warriors, and students of the Word. Start with the $3 War Room below—these are for when you need something specific.
           </p>
         </div>
       </section>
