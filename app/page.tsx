@@ -266,40 +266,32 @@ export default function Home() {
 
       {/* What's Included */}
       <section className="py-12 px-6 bg-gray-50">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl font-black text-center mb-10 text-gray-900">Everything Included</h2>
 
-          <div className="space-y-4 mb-10">
-            <div className="bg-white border border-gray-200 rounded-lg p-6 flex items-start gap-4">
-              <div className="text-3xl">📻</div>
-              <div>
-                <h3 className="font-bold text-lg text-gray-900 mb-1">Final Fight Bible Radio</h3>
-                <p className="text-gray-700">24/7 uncompromising biblical teaching from KJV 1611</p>
-              </div>
+          <div className="space-y-3 mb-10">
+            <div className="bg-white border border-gray-200 rounded-lg p-5 text-center">
+              <div className="text-3xl mb-2">📻</div>
+              <h3 className="font-bold text-lg text-gray-900 mb-1">Final Fight Bible Radio</h3>
+              <p className="text-gray-600 text-sm">24/7 uncompromising biblical teaching from KJV 1611</p>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-lg p-6 flex items-start gap-4">
-              <div className="text-3xl">📚</div>
-              <div>
-                <h3 className="font-bold text-lg text-gray-900 mb-1">The Library</h3>
-                <p className="text-gray-700">Tactical guides on marriage, fatherhood, and biblical leadership</p>
-              </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-5 text-center">
+              <div className="text-3xl mb-2">📚</div>
+              <h3 className="font-bold text-lg text-gray-900 mb-1">The Library</h3>
+              <p className="text-gray-600 text-sm">Tactical guides on marriage, fatherhood, and biblical leadership</p>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-lg p-6 flex items-start gap-4">
-              <div className="text-3xl">⚔️</div>
-              <div>
-                <h3 className="font-bold text-lg text-gray-900 mb-1">The War Room</h3>
-                <p className="text-gray-700">Deep Bible study tools to sharpen your understanding</p>
-              </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-5 text-center">
+              <div className="text-3xl mb-2">⚔️</div>
+              <h3 className="font-bold text-lg text-gray-900 mb-1">The War Room</h3>
+              <p className="text-gray-600 text-sm">Deep Bible study tools to sharpen your understanding</p>
             </div>
 
-            <div className="bg-white border border-gray-200 rounded-lg p-6 flex items-start gap-4">
-              <div className="text-3xl">♾️</div>
-              <div>
-                <h3 className="font-bold text-lg text-gray-900 mb-1">Lifetime Access</h3>
-                <p className="text-gray-700">One payment. Forever access. All future updates.</p>
-              </div>
+            <div className="bg-white border border-gray-200 rounded-lg p-5 text-center">
+              <div className="text-3xl mb-2">♾️</div>
+              <h3 className="font-bold text-lg text-gray-900 mb-1">Lifetime Access</h3>
+              <p className="text-gray-600 text-sm">One payment. Forever access. All future updates.</p>
             </div>
           </div>
 
