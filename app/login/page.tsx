@@ -19,14 +19,23 @@ export default function LoginPage() {
         setError('');
 
         try {
+            console.log('Login attempt:', { email: email.trim(), password: password.trim() });
+
             // EMERGENCY CLIENT-SIDE OVERRIDE
             // This ensures admin can always get in even if API/DB is acting up
-            if (email.trim().toLowerCase() === 'adam@thebiblicalmantruth.com' && password.trim() === 'Acts29!') {
+            const cleanEmail = email.trim().toLowerCase();
+            const cleanPassword = password.trim();
+
+            if (cleanEmail === 'adam@thebiblicalmantruth.com' && cleanPassword === 'Acts29!') {
+                console.log('Client-side override triggered');
                 localStorage.setItem('biblical_user', 'true');
-                document.cookie = "auth=true; path=/";
-                router.push('/hub');
+                document.cookie = "auth=true; path=/; max-age=31536000";
+                console.log('Auth set, redirecting to hub');
+                setTimeout(() => router.push('/hub'), 100);
                 return;
             }
+
+            console.log('Calling API for login');
 
             const res = await fetch('/api/auth/login', {
                 method: 'POST',
