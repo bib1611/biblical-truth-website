@@ -120,12 +120,99 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Free Resources Section */}
+      <section className="relative z-10 px-6 py-16 border-t border-white/10 bg-slate-950/50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-block px-4 py-1 bg-green-500/20 border border-green-500/30 rounded-full text-green-400 text-sm font-bold mb-4">
+              100% FREE
+            </div>
+            <h2 className="text-3xl font-black mb-3">Start Here: Free Resources</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Not ready to join yet? Start with these free resources to see if this is for you.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <a href="https://biblicalman.substack.com" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-b from-slate-900 to-slate-950 border border-white/10 rounded-xl p-6 hover:border-green-500/50 transition-all group">
+              <div className="text-3xl mb-3">📖</div>
+              <h3 className="text-lg font-bold mb-2 group-hover:text-green-500 transition-colors">Free Articles & Teaching</h3>
+              <p className="text-sm text-gray-400 mb-4">Weekly articles on biblical manhood, fatherhood, and uncompromising truth.</p>
+              <div className="text-sm text-green-500 font-semibold">Read on Substack →</div>
+            </a>
+            <Link href="/start-here" className="bg-gradient-to-b from-slate-900 to-slate-950 border border-white/10 rounded-xl p-6 hover:border-green-500/50 transition-all group">
+              <div className="text-3xl mb-3">🧭</div>
+              <h3 className="text-lg font-bold mb-2 group-hover:text-green-500 transition-colors">Find Your Path (Free Quiz)</h3>
+              <p className="text-sm text-gray-400 mb-4">30-second quiz to discover what resources you actually need right now.</p>
+              <div className="text-sm text-green-500 font-semibold">Take Quiz →</div>
+            </Link>
+            <div className="bg-gradient-to-b from-slate-900 to-slate-950 border border-white/10 rounded-xl p-6">
+              <div className="text-3xl mb-3">🎁</div>
+              <h3 className="text-lg font-bold mb-2">Coming Soon: Free Guide</h3>
+              <p className="text-sm text-gray-400 mb-4">"10 Uncomfortable Truths About Biblical Leadership" - Available soon for email subscribers.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Women's Resources Section */}
+      <section className="relative z-10 px-6 py-16 border-t border-white/10">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-black mb-3">For Women: Biblical Womanhood Without Sugar-Coating</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Yes, this site is for you too. Uncompromising biblical truth for Christian women who refuse to compromise.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <div className="bg-gradient-to-b from-slate-900 to-slate-950 border border-pink-500/30 rounded-xl p-6">
+              <h3 className="text-xl font-bold mb-3 text-pink-400">In The War Room ($3):</h3>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-pink-500 mt-0.5">✓</span>
+                  <span>Biblical womanhood teaching</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-pink-500 mt-0.5">✓</span>
+                  <span>Guides on submission, motherhood, & marriage</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-pink-500 mt-0.5">✓</span>
+                  <span>Community of biblical women</span>
+                </li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-b from-slate-900 to-slate-950 border border-pink-500/30 rounded-xl p-6">
+              <h3 className="text-xl font-bold mb-3 text-pink-400">Premium Courses:</h3>
+              <ul className="space-y-2 text-sm text-gray-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-pink-500 mt-0.5">→</span>
+                  <span>"The Queen's Guide: Raising Your Husband"</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-pink-500 mt-0.5">→</span>
+                  <span>"60 Uncomfortable Truths for Christian Women"</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-pink-500 mt-0.5">→</span>
+                  <span>Browse all women's resources in The Armory</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="text-center mt-8">
+            <Link href="/gate-pass" className="inline-block bg-pink-500 hover:bg-pink-400 text-white font-bold px-8 py-3 rounded-lg transition-colors">
+              Join The War Room - $3
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Secondary Options Section */}
       <section className="relative z-10 px-6 py-16 border-t border-white/10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-2xl font-black mb-3">Need Something Else?</h2>
-            <p className="text-gray-400">Most men start with the War Room. But if you're looking for something specific...</p>
+            <h2 className="text-2xl font-black mb-3">Need Something Specific?</h2>
+            <p className="text-gray-400">Most people start with the War Room. But if you're looking for advanced training...</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
 
@@ -167,18 +254,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="relative z-10 px-6 py-12 border-t border-white/10">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-sm text-gray-400 mb-3">
-            Not sure which door to pick?
+      {/* Final CTA */}
+      <section className="relative z-10 px-6 py-16 border-t border-white/10 bg-gradient-to-b from-slate-950 to-black">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-black mb-4">
+            Ready to Stop Wandering?
+          </h2>
+          <p className="text-lg text-gray-400 mb-8">
+            Join 12,793+ men and women who found uncompromising biblical truth.
           </p>
           <Link
-            href="/start-here"
-            className="inline-block text-sm bg-white/5 border border-white/20 hover:bg-white/10 px-6 py-2 rounded-lg font-semibold transition-all"
+            href="/gate-pass"
+            className="inline-block bg-amber-500 hover:bg-amber-400 text-black font-black text-xl px-12 py-5 rounded-xl transition-colors shadow-2xl shadow-amber-500/30"
           >
-            Start with Door #1
+            Join The War Room - $3
           </Link>
+          <p className="text-sm text-gray-500 mt-4">One payment. Lifetime access. No subscription.</p>
         </div>
       </section>
 
