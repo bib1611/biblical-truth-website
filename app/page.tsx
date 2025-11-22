@@ -27,9 +27,12 @@ export default function Home() {
     };
   }, [timerStarted, timeRemaining]);
 
-  const startTimer = () => {
-    if (!timerStarted) {
-      setTimerStarted(true);
+  const handleListenClick = () => {
+    if (!showSignupWall) {
+      window.open('https://tunein.com/radio/Final-Fight-Bible-Radio-s116115/', '_blank');
+      if (!timerStarted) {
+        setTimerStarted(true);
+      }
     }
   };
 
@@ -81,43 +84,46 @@ export default function Home() {
               <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
                 {!showSignupWall ? (
                   <div className="p-8">
-                    <div className="mb-6">
-                      <h3 className="text-xl font-black text-white mb-1">FINAL FIGHT BIBLE RADIO</h3>
-                      <p className="text-gray-400 text-sm">24/7 Uncompromising Biblical Teaching</p>
+                    <div className="mb-6 text-center">
+                      <h3 className="text-2xl font-black text-white mb-2">FINAL FIGHT BIBLE RADIO</h3>
+                      <p className="text-gray-400">24/7 Uncompromising Biblical Teaching</p>
                     </div>
 
-                    {/* Embedded Player */}
-                    <div className="aspect-[16/9] bg-black rounded-xl overflow-hidden mb-4" onClick={startTimer}>
-                      <iframe
-                        src="https://tunein.com/embed/player/s116115/"
-                        className="w-full h-full border-0"
-                        allow="autoplay"
-                      ></iframe>
-                    </div>
+                    {/* Listen Button */}
+                    <button
+                      onClick={handleListenClick}
+                      className="w-full bg-gradient-to-br from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-black text-xl py-8 rounded-xl transition-all transform hover:scale-[1.02] shadow-2xl mb-6 flex items-center justify-center gap-4"
+                    >
+                      <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                      LISTEN LIVE NOW
+                    </button>
 
                     {/* Timer */}
                     {timerStarted && (
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-400">Free Preview Time</span>
-                          <span className="text-yellow-500 font-bold">{formatTime(timeRemaining)}</span>
+                          <span className="text-gray-400">Free Preview Time Remaining</span>
+                          <span className="text-yellow-500 font-bold text-lg">{formatTime(timeRemaining)}</span>
                         </div>
-                        <div className="w-full bg-gray-800 rounded-full h-2">
+                        <div className="w-full bg-gray-800 rounded-full h-3">
                           <div
-                            className="bg-gradient-to-r from-yellow-500 to-orange-600 h-2 rounded-full transition-all"
+                            className="bg-gradient-to-r from-yellow-500 to-orange-600 h-3 rounded-full transition-all"
                             style={{ width: `${(timeRemaining / 300) * 100}%` }}
                           ></div>
                         </div>
+                        <p className="text-gray-500 text-xs text-center">Radio opens in new tab</p>
                       </div>
                     )}
                   </div>
                 ) : (
                   <div className="p-12 text-center">
-                    <h3 className="text-2xl font-black text-white mb-3">Want to keep listening?</h3>
-                    <p className="text-gray-300 mb-6">Get unlimited access for just $3</p>
+                    <h3 className="text-3xl font-black text-white mb-3">Free Trial Ended</h3>
+                    <p className="text-gray-300 mb-6 text-lg">Get unlimited access to Final Fight Bible Radio</p>
                     <a
                       href="https://buy.stripe.com/3cIaEYgbC1uh5I45VIcMM26"
-                      className="inline-block bg-gradient-to-r from-yellow-500 to-orange-600 text-black font-black px-8 py-4 rounded-lg hover:scale-105 transition-transform text-lg"
+                      className="inline-block bg-gradient-to-r from-yellow-500 to-orange-600 text-black font-black px-10 py-5 rounded-xl hover:scale-105 transition-transform text-xl shadow-2xl"
                     >
                       GET ACCESS NOW ($3)
                     </a>
