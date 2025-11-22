@@ -77,6 +77,16 @@ export default function HomePage() {
                 </div>
               </div>
 
+              {/* Bonus Offer */}
+              <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 mb-6">
+                <div className="flex items-start gap-2 mb-2">
+                  <span className="text-green-400 text-sm font-bold">🎁 LIMITED BONUS:</span>
+                </div>
+                <p className="text-sm text-gray-300">
+                  Join this week and get <span className="text-green-400 font-bold">"The Uncomfortable Christ"</span> free (162+ downloads, normally separate). Instant delivery.
+                </p>
+              </div>
+
               <Link
                 href="/gate-pass"
                 className="block w-full bg-amber-500 hover:bg-amber-400 text-black font-black text-lg md:text-xl py-5 md:py-4 rounded-xl transition-colors shadow-2xl shadow-amber-500/30 active:scale-95"
@@ -133,11 +143,12 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            <a href="https://biblicalman.substack.com" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-b from-slate-900 to-slate-950 border border-white/10 rounded-xl p-6 hover:border-green-500/50 transition-all group">
+            <a href="https://biblicalman.gumroad.com/l/elmog" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-b from-slate-900 to-slate-950 border border-white/10 rounded-xl p-6 hover:border-green-500/50 transition-all group">
               <div className="text-3xl mb-3">📖</div>
-              <h3 className="text-lg font-bold mb-2 group-hover:text-green-500 transition-colors">Free Articles & Teaching</h3>
-              <p className="text-sm text-gray-400 mb-4">Weekly articles on biblical manhood, fatherhood, and uncompromising truth.</p>
-              <div className="text-sm text-green-500 font-semibold">Read on Substack →</div>
+              <div className="inline-block px-2 py-1 bg-green-500/20 rounded text-xs font-bold text-green-400 mb-2">228+ DOWNLOADS</div>
+              <h3 className="text-lg font-bold mb-2 group-hover:text-green-500 transition-colors">How to Study the Bible Like Your Life Depends on It</h3>
+              <p className="text-sm text-gray-400 mb-4">Practical tools for serious Bible students who refuse to twist Scripture.</p>
+              <div className="text-sm text-green-500 font-semibold">Download Free Guide →</div>
             </a>
             <Link href="/start-here" className="bg-gradient-to-b from-slate-900 to-slate-950 border border-white/10 rounded-xl p-6 hover:border-green-500/50 transition-all group">
               <div className="text-3xl mb-3">🧭</div>
@@ -145,11 +156,12 @@ export default function HomePage() {
               <p className="text-sm text-gray-400 mb-4">30-second quiz to discover what resources you actually need right now.</p>
               <div className="text-sm text-green-500 font-semibold">Take Quiz →</div>
             </Link>
-            <div className="bg-gradient-to-b from-slate-900 to-slate-950 border border-white/10 rounded-xl p-6">
-              <div className="text-3xl mb-3">🎁</div>
-              <h3 className="text-lg font-bold mb-2">Coming Soon: Free Guide</h3>
-              <p className="text-sm text-gray-400 mb-4">"10 Uncomfortable Truths About Biblical Leadership" - Available soon for email subscribers.</p>
-            </div>
+            <a href="https://biblicalman.substack.com" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-b from-slate-900 to-slate-950 border border-white/10 rounded-xl p-6 hover:border-green-500/50 transition-all group">
+              <div className="text-3xl mb-3">✍️</div>
+              <h3 className="text-lg font-bold mb-2 group-hover:text-green-500 transition-colors">Free Articles & Teaching</h3>
+              <p className="text-sm text-gray-400 mb-4">Weekly articles on biblical manhood, fatherhood, and uncompromising truth.</p>
+              <div className="text-sm text-green-500 font-semibold">Read on Substack →</div>
+            </a>
           </div>
         </div>
       </section>
