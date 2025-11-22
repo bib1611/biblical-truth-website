@@ -82,19 +82,25 @@ export default function Home() {
 
   const featuredContent = [
     {
-      title: "What Modern Churches Won't Tell You About Biblical Masculinity",
-      excerpt: "They kicked me out of Bible school for teaching this. Now 12,000+ men are applying it to lead their families.",
-      date: "Nov 18"
+      title: "Words, Castles, and the House Christ Keeps",
+      excerpt: "Lately I've been living in two worlds at once.",
+      date: "Nov 22",
+      image: "https://substackcdn.com/image/fetch/w_600,h_400,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffb85f72c-6106-4110-a7a4-30ca834cacab_736x981.jpeg",
+      url: "https://biblicalman.substack.com/p/words-castles-and-the-house-christ"
     },
     {
-      title: "The One Scripture That Changed How I Lead My Family",
-      excerpt: "My wife didn't respect me until I understood what Ephesians 5 actually says. Here's what they're not teaching you.",
-      date: "Nov 15"
+      title: "He Found Us in a Field, Covered in Blood",
+      excerpt: "There's a story in your Bible that doesn't get turned into mugs and T-shirts.",
+      date: "Nov 21",
+      image: "https://images.unsplash.com/photo-1590869942905-a4ada45d5a8a?w=600&h=400&fit=crop",
+      url: "https://biblicalman.substack.com/p/he-found-us-in-a-field-covered-in"
     },
     {
-      title: "Why Your Sons Need You to Stop Being Nice",
-      excerpt: "Biblical fatherhood isn't about being their friend. It's about raising warriors. Here's the difference.",
-      date: "Nov 12"
+      title: "God Gave Adam a Job Before He Gave Him a Wife",
+      excerpt: "God gave Adam a job before He gave Adam a wife.",
+      date: "Nov 20",
+      image: "https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?w=600&h=400&fit=crop",
+      url: "https://biblicalman.substack.com/p/god-gave-adam-a-job-before-he-gave"
     }
   ];
 
@@ -150,17 +156,23 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {featuredContent.map((content, i) => (
-              <div key={i} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
-                <div className="h-48 bg-gradient-to-br from-gray-800 to-gray-900"></div>
+              <a key={i} href={content.url} target="_blank" rel="noopener noreferrer" className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow group">
+                <div className="h-48 bg-gray-200 overflow-hidden">
+                  <img
+                    src={content.image}
+                    alt={content.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
                 <div className="p-6">
                   <p className="text-xs text-gray-500 mb-2">{content.date}</p>
-                  <h3 className="text-lg font-bold text-gray-900 mb-3 leading-snug">{content.title}</h3>
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 leading-snug group-hover:text-emerald-700 transition-colors">{content.title}</h3>
                   <p className="text-gray-700 text-sm leading-relaxed mb-4">{content.excerpt}</p>
-                  <a href="#" className="text-sm font-semibold text-emerald-700 hover:text-emerald-900">
+                  <span className="text-sm font-semibold text-emerald-700 group-hover:text-emerald-900">
                     Read more →
-                  </a>
+                  </span>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
