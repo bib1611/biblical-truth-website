@@ -11,7 +11,7 @@ export async function createUser(email: string, passwordHash: string) {
       ON CONFLICT (email) DO UPDATE SET status = 'active'
       RETURNING id;
     `;
-        return result.rows[0];
+        return result[0];
     } catch (error) {
         console.error('Failed to create user:', error);
         return null;
@@ -20,8 +20,8 @@ export async function createUser(email: string, passwordHash: string) {
 
 export async function getUser(email: string) {
     try {
-        const { rows } = await sql`SELECT * FROM users WHERE email=${email}`;
-        return rows[0];
+        const result = await sql`SELECT * FROM users WHERE email=${email}`;
+        return result[0];
     } catch (error) {
         console.error('Failed to fetch user:', error);
         return null;
@@ -59,14 +59,14 @@ export async function createMembership(
  */
 export async function userHasGatePass(userId: number): Promise<boolean> {
     try {
-        const { rows } = await sql`
+        const result = await sql`
       SELECT * FROM memberships
       WHERE user_id = ${userId}
       AND membership_type = 'gate_pass'
       AND status = 'active'
       LIMIT 1;
     `;
-        return rows.length > 0;
+        return result.length > 0;
     } catch (error) {
         console.error('Failed to check membership:', error);
         return false;
@@ -78,7 +78,7 @@ export async function userHasGatePass(userId: number): Promise<boolean> {
  */
 export async function emailHasGatePass(email: string): Promise<boolean> {
     try {
-        const { rows } = await sql`
+        const result = await sql`
       SELECT m.* FROM memberships m
       JOIN users u ON u.id = m.user_id
       WHERE u.email = ${email}
@@ -86,7 +86,7 @@ export async function emailHasGatePass(email: string): Promise<boolean> {
       AND m.status = 'active'
       LIMIT 1;
     `;
-        return rows.length > 0;
+        return result.length > 0;
     } catch (error) {
         console.error('Failed to check membership by email:', error);
         return false;
@@ -98,8 +98,8 @@ export async function emailHasGatePass(email: string): Promise<boolean> {
  */
 export async function getUserById(userId: number) {
     try {
-        const { rows } = await sql`SELECT * FROM users WHERE id=${userId}`;
-        return rows[0];
+        const result = await sql`SELECT * FROM users WHERE id=${userId}`;
+        return result[0];
     } catch (error) {
         console.error('Failed to fetch user by ID:', error);
         return null;
@@ -111,14 +111,14 @@ export async function getUserById(userId: number) {
  */
 export async function getUserMembership(userId: number) {
     try {
-        const { rows } = await sql`
+        const result = await sql`
       SELECT * FROM memberships
       WHERE user_id = ${userId}
       AND membership_type = 'gate_pass'
       ORDER BY created_at DESC
       LIMIT 1;
     `;
-        return rows[0] || null;
+        return result[0] || null;
     } catch (error) {
         console.error('Failed to fetch membership:', error);
         return null;
