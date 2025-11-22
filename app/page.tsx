@@ -4,23 +4,17 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 export default function Home() {
-  const [isPlaying, setIsPlaying] = useState(false);
   const [showSignupWall, setShowSignupWall] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(300); // 5 minutes
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const [timerStarted, setTimerStarted] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Try multiple stream URLs as fallback
-  const STREAM_URL = 'http://stream.radio.co/s3ee3322e0/listen';
-
   useEffect(() => {
-    if (isPlaying && timeRemaining > 0) {
+    if (timerStarted && timeRemaining > 0) {
       timerRef.current = setInterval(() => {
         setTimeRemaining((prev) => {
           if (prev <= 1) {
             setShowSignupWall(true);
-            if (audioRef.current) audioRef.current.pause();
-            setIsPlaying(false);
             return 0;
           }
           return prev - 1;
@@ -31,18 +25,11 @@ export default function Home() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isPlaying, timeRemaining]);
+  }, [timerStarted, timeRemaining]);
 
-  const togglePlay = () => {
-    if (showSignupWall) return;
-
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
+  const startTimer = () => {
+    if (!timerStarted) {
+      setTimerStarted(true);
     }
   };
 
@@ -54,7 +41,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
-      <audio ref={audioRef} src={STREAM_URL} />
 
       {/* Animated background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-30">
@@ -93,65 +79,50 @@ export default function Home() {
             {/* Radio Player */}
             <div className="max-w-3xl mx-auto mb-16">
               <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-2xl overflow-hidden shadow-2xl">
-                <div className="p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <div>
+                {!showSignupWall ? (
+                  <div className="p-8">
+                    <div className="mb-6">
                       <h3 className="text-xl font-black text-white mb-1">FINAL FIGHT BIBLE RADIO</h3>
                       <p className="text-gray-400 text-sm">24/7 Uncompromising Biblical Teaching</p>
                     </div>
-                    {isPlaying && (
-                      <div className="flex items-center gap-2 bg-red-600 px-3 py-1 rounded-full">
-                        <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                        <span className="text-white text-xs font-bold">LIVE</span>
+
+                    {/* Embedded Player */}
+                    <div className="aspect-[16/9] bg-black rounded-xl overflow-hidden mb-4" onClick={startTimer}>
+                      <iframe
+                        src="https://ffbrmobile.com/ffbr-streams/"
+                        className="w-full h-full border-0"
+                        allow="autoplay"
+                      ></iframe>
+                    </div>
+
+                    {/* Timer */}
+                    {timerStarted && (
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-400">Free Preview Time</span>
+                          <span className="text-yellow-500 font-bold">{formatTime(timeRemaining)}</span>
+                        </div>
+                        <div className="w-full bg-gray-800 rounded-full h-2">
+                          <div
+                            className="bg-gradient-to-r from-yellow-500 to-orange-600 h-2 rounded-full transition-all"
+                            style={{ width: `${(timeRemaining / 300) * 100}%` }}
+                          ></div>
+                        </div>
                       </div>
                     )}
                   </div>
-
-                  <div className="flex items-center gap-6">
-                    <button
-                      onClick={togglePlay}
-                      disabled={showSignupWall}
-                      className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center text-black hover:scale-110 transition-transform shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                ) : (
+                  <div className="p-12 text-center">
+                    <h3 className="text-2xl font-black text-white mb-3">Want to keep listening?</h3>
+                    <p className="text-gray-300 mb-6">Get unlimited access for just $3</p>
+                    <a
+                      href="https://buy.stripe.com/3cIaEYgbC1uh5I45VIcMM26"
+                      className="inline-block bg-gradient-to-r from-yellow-500 to-orange-600 text-black font-black px-8 py-4 rounded-lg hover:scale-105 transition-transform text-lg"
                     >
-                      {isPlaying ? (
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                        </svg>
-                      ) : (
-                        <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      )}
-                    </button>
-
-                    <div className="flex-1">
-                      {!showSignupWall ? (
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span className="text-gray-400">Free Preview Time</span>
-                            <span className="text-yellow-500 font-bold">{formatTime(timeRemaining)}</span>
-                          </div>
-                          <div className="w-full bg-gray-800 rounded-full h-2">
-                            <div
-                              className="bg-gradient-to-r from-yellow-500 to-orange-600 h-2 rounded-full transition-all"
-                              style={{ width: `${(timeRemaining / 300) * 100}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="text-center py-4">
-                          <p className="text-white font-bold mb-2">Want to keep listening?</p>
-                          <a
-                            href="https://buy.stripe.com/3cIaEYgbC1uh5I45VIcMM26"
-                            className="inline-block bg-gradient-to-r from-yellow-500 to-orange-600 text-black font-black px-6 py-2 rounded-lg hover:scale-105 transition-transform"
-                          >
-                            GET ACCESS ($3)
-                          </a>
-                        </div>
-                      )}
-                    </div>
+                      GET ACCESS NOW ($3)
+                    </a>
                   </div>
-                </div>
+                )}
               </div>
             </div>
 
