@@ -4,11 +4,14 @@ import { getUser } from '@/lib/db';
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { email, password } = body;
+        let { email, password } = body;
 
         if (!email || !password) {
             return NextResponse.json({ error: 'Missing credentials' }, { status: 400 });
         }
+
+        email = email.toLowerCase().trim();
+        password = password.trim();
 
         // 1. Check against database
         const user = await getUser(email);
