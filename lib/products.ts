@@ -70,7 +70,7 @@ export const products: Product[] = [
     id: 'jxmbiy',
     title: 'The Warrior Bundle',
     category: 'warriors',
-    description: 'Everything a man needs to fight the battles he's actually facing: marriage, mission, spiritual warfare, and becoming who God called him to be.',
+    description: 'Everything a man needs to fight the battles he\'s actually facing: marriage, mission, spiritual warfare, and becoming who God called him to be.',
     identityTagline: "You're not buying a course bundle. You're buying the complete arsenal for the war you're already in.",
     price: '$75',
     gumroadUrl: 'https://biblicalman.gumroad.com/l/jxmbiy',
