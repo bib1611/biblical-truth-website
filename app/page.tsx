@@ -89,7 +89,7 @@ export default function Home() {
                     {/* Embedded Player */}
                     <div className="aspect-[16/9] bg-black rounded-xl overflow-hidden mb-4" onClick={startTimer}>
                       <iframe
-                        src="https://ffbrmobile.com/ffbr-streams/"
+                        src="https://tunein.com/embed/player/s116115/"
                         className="w-full h-full border-0"
                         allow="autoplay"
                       ></iframe>
