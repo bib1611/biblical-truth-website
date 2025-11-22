@@ -40,7 +40,7 @@ export default function HubLayout({
             {/* Sidebar */}
             <aside className="w-64 border-r border-[#222] fixed h-full hidden md:flex flex-col bg-[#0a0a0a]">
                 <div className="p-8 border-b border-[#222]">
-                    <Link href="/" className="text-xl font-black tracking-tighter text-white">
+                    <Link href="/hub" className="text-xl font-black tracking-tighter text-white">
                         THE HUB
                     </Link>
                     <div className="text-xs text-[#666] mt-1">COMMAND CENTER</div>
@@ -54,8 +54,8 @@ export default function HubLayout({
                                 key={item.path}
                                 href={item.path}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActive
-                                        ? 'bg-[#FFD700] text-black font-bold'
-                                        : 'text-[#888] hover:text-white hover:bg-[#111]'
+                                    ? 'bg-[#FFD700] text-black font-bold'
+                                    : 'text-[#888] hover:text-white hover:bg-[#111]'
                                     }`}
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

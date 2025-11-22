@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export default function RadioPage() {
     const [currentTrack, setCurrentTrack] = useState(0);
@@ -36,6 +37,9 @@ export default function RadioPage() {
     return (
         <>
             <header className="mb-12">
+                <Link href="/hub" className="text-[#FFD700] text-sm font-bold mb-4 inline-block hover:underline">
+                    ← BACK TO DASHBOARD
+                </Link>
                 <h1 className="text-4xl font-black text-white mb-2">BIBLICAL MAN RADIO</h1>
                 <p className="text-[#666]">Uncensored audio for the commute.</p>
             </header>
@@ -127,8 +131,8 @@ export default function RadioPage() {
                                 setIsPlaying(true);
                             }}
                             className={`p-4 rounded-lg cursor-pointer transition-all border ${currentTrack === idx
-                                    ? 'bg-[#111] border-[#FFD700]'
-                                    : 'bg-transparent border-transparent hover:bg-[#111] hover:border-[#222]'
+                                ? 'bg-[#111] border-[#FFD700]'
+                                : 'bg-transparent border-transparent hover:bg-[#111] hover:border-[#222]'
                                 }`}
                         >
                             <div className="flex justify-between items-start mb-2">
