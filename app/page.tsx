@@ -7,6 +7,8 @@ export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showSignupWall, setShowSignupWall] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(300); // 5 minutes
+  const [volume, setVolume] = useState(0.8);
+  const [nowPlaying, setNowPlaying] = useState('Final Fight Bible Radio');
   const audioRef = useRef<HTMLAudioElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -35,8 +37,14 @@ export default function Home() {
     };
   }, [isPlaying, timeRemaining]);
 
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume;
+    }
+  }, [volume]);
+
   const togglePlay = async () => {
-    if (!showSignupWall && audioRef.current) {
+    if (audioRef.current) {
       try {
         if (isPlaying) {
           audioRef.current.pause();
@@ -49,6 +57,11 @@ export default function Home() {
         console.error('Audio playback error:', error);
       }
     }
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
   };
 
   const formatTime = (seconds: number) => {
@@ -106,46 +119,84 @@ export default function Home() {
                       <p className="text-gray-400">24/7 Uncompromising Biblical Teaching</p>
                     </div>
 
-                    {/* Play/Pause Button */}
-                    <button
-                      onClick={togglePlay}
-                      className="w-full bg-gradient-to-br from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-black text-xl py-8 rounded-xl transition-all transform hover:scale-[1.02] shadow-2xl mb-6 flex items-center justify-center gap-4"
-                    >
-                      {isPlaying ? (
-                        <>
-                          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                    {/* Album Art / Station Logo */}
+                    <div className="relative aspect-square w-full max-w-sm mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-yellow-600 via-orange-600 to-red-700">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center p-8">
+                          <div className="text-6xl mb-4">📻</div>
+                          <div className="text-white font-black text-2xl drop-shadow-lg">FFBR</div>
+                          <div className="text-white/80 text-sm mt-2">Live Radio</div>
+                        </div>
+                      </div>
+                      {isPlaying && (
+                        <div className="absolute top-4 right-4">
+                          <div className="flex items-center gap-2 bg-red-600 px-3 py-1.5 rounded-full shadow-lg">
+                            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                            <span className="text-white text-xs font-bold">LIVE</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Now Playing */}
+                    <div className="text-center mb-6">
+                      <h3 className="text-xl font-bold text-white mb-1">{nowPlaying}</h3>
+                      <p className="text-gray-400 text-sm">24/7 Biblical Teaching • KJV 1611</p>
+                    </div>
+
+                    {/* Player Controls */}
+                    <div className="flex items-center justify-center gap-6 mb-8">
+                      {/* Play/Pause Button */}
+                      <button
+                        onClick={togglePlay}
+                        className="w-16 h-16 bg-white hover:bg-gray-100 rounded-full flex items-center justify-center text-black transition-all shadow-lg hover:scale-105"
+                      >
+                        {isPlaying ? (
+                          <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
                           </svg>
-                          PAUSE RADIO
-                        </>
-                      ) : (
-                        <>
-                          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                        ) : (
+                          <svg className="w-7 h-7 ml-1" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z" />
                           </svg>
-                          LISTEN LIVE NOW
-                        </>
-                      )}
-                    </button>
+                        )}
+                      </button>
+                    </div>
 
-                    {/* Live Indicator */}
-                    {isPlaying && (
-                      <div className="flex items-center justify-center gap-2 mb-4">
-                        <div className="w-3 h-3 bg-red-600 rounded-full animate-pulse"></div>
-                        <span className="text-red-500 text-sm font-bold">STREAMING LIVE</span>
+                    {/* Volume Control */}
+                    <div className="mb-6">
+                      <div className="flex items-center gap-3">
+                        <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
+                        </svg>
+                        <input
+                          type="range"
+                          min="0"
+                          max="1"
+                          step="0.01"
+                          value={volume}
+                          onChange={handleVolumeChange}
+                          className="flex-1 h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
+                          style={{
+                            background: `linear-gradient(to right, #f59e0b 0%, #f59e0b ${volume * 100}%, #374151 ${volume * 100}%, #374151 100%)`
+                          }}
+                        />
+                        <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
                       </div>
-                    )}
+                    </div>
 
-                    {/* Timer */}
-                    {isPlaying && (
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span className="text-gray-400">Free Preview Time Remaining</span>
-                          <span className="text-yellow-500 font-bold text-lg">{formatTime(timeRemaining)}</span>
+                    {/* Free Trial Timer */}
+                    {!showSignupWall && (
+                      <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-yellow-500 text-sm font-semibold">Free Preview</span>
+                          <span className="text-yellow-500 text-lg font-black">{formatTime(timeRemaining)}</span>
                         </div>
-                        <div className="w-full bg-gray-800 rounded-full h-3">
+                        <div className="w-full bg-gray-800 rounded-full h-2">
                           <div
-                            className="bg-gradient-to-r from-yellow-500 to-orange-600 h-3 rounded-full transition-all"
+                            className="bg-gradient-to-r from-yellow-500 to-orange-600 h-2 rounded-full transition-all"
                             style={{ width: `${(timeRemaining / 300) * 100}%` }}
                           ></div>
                         </div>
@@ -153,15 +204,60 @@ export default function Home() {
                     )}
                   </div>
                 ) : (
-                  <div className="p-12 text-center">
-                    <h3 className="text-3xl font-black text-white mb-3">Free Trial Ended</h3>
-                    <p className="text-gray-300 mb-6 text-lg">Get unlimited access to Final Fight Bible Radio</p>
-                    <a
-                      href="https://buy.stripe.com/3cIaEYgbC1uh5I45VIcMM26"
-                      className="inline-block bg-gradient-to-r from-yellow-500 to-orange-600 text-black font-black px-10 py-5 rounded-xl hover:scale-105 transition-transform text-xl shadow-2xl"
-                    >
-                      GET ACCESS NOW ($3)
-                    </a>
+                  <div className="p-8">
+                    {/* Album Art / Station Logo */}
+                    <div className="relative aspect-square w-full max-w-sm mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-yellow-600 via-orange-600 to-red-700 opacity-50">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center p-8">
+                          <div className="text-6xl mb-4">📻</div>
+                          <div className="text-white font-black text-2xl drop-shadow-lg">FFBR</div>
+                          <div className="text-white/80 text-sm mt-2">Live Radio</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Now Playing - Locked */}
+                    <div className="text-center mb-6">
+                      <h3 className="text-xl font-bold text-gray-500 mb-1">{nowPlaying}</h3>
+                      <p className="text-gray-600 text-sm">24/7 Biblical Teaching • KJV 1611</p>
+                    </div>
+
+                    {/* Locked Controls */}
+                    <div className="flex items-center justify-center gap-6 mb-8">
+                      <button
+                        disabled
+                        className="w-16 h-16 bg-gray-700 rounded-full flex items-center justify-center text-gray-500 cursor-not-allowed"
+                      >
+                        <svg className="w-7 h-7 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    {/* Volume Control - Disabled */}
+                    <div className="mb-8">
+                      <div className="flex items-center gap-3">
+                        <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
+                        </svg>
+                        <div className="flex-1 h-1 bg-gray-800 rounded-lg"></div>
+                        <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                        </svg>
+                      </div>
+                    </div>
+
+                    {/* Signup CTA */}
+                    <div className="bg-gradient-to-r from-yellow-500/20 to-orange-600/20 border border-yellow-500/50 rounded-xl p-6 text-center">
+                      <h3 className="text-2xl font-black text-white mb-2">Free Trial Ended</h3>
+                      <p className="text-gray-300 mb-6">Get unlimited access to Final Fight Bible Radio</p>
+                      <a
+                        href="https://buy.stripe.com/3cIaEYgbC1uh5I45VIcMM26"
+                        className="inline-block bg-gradient-to-r from-yellow-500 to-orange-600 text-black font-black px-10 py-4 rounded-xl hover:scale-105 transition-transform text-lg shadow-2xl"
+                      >
+                        GET ACCESS NOW ($3)
+                      </a>
+                    </div>
                   </div>
                 )}
               </div>
