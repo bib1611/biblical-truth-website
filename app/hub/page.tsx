@@ -54,7 +54,7 @@ export default function HubPage() {
                 <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-blue-500/5 to-purple-600/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
             </div>
 
-            <div className="relative z-10">
+            <div className="relative z-10 max-w-7xl mx-auto px-6 py-12">
                 <header className="mb-16 pt-8">
                     <div className="flex items-center gap-4 mb-4">
                         <div className="h-1 w-12 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full"></div>
