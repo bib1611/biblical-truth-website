@@ -219,6 +219,32 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Substack War Room CTA Banner */}
+      <section className="relative z-10 px-6 py-12 border-t border-white/10 bg-gradient-to-r from-amber-950/20 to-slate-950">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-gradient-to-r from-amber-900/30 to-slate-900 border-2 border-amber-500/40 rounded-2xl p-8">
+            <div className="flex-1 text-center md:text-left">
+              <div className="inline-block px-3 py-1 bg-amber-500/20 rounded-full text-xs font-bold text-amber-500 mb-2 uppercase tracking-wide">
+                📰 SUBSTACK READERS
+              </div>
+              <h3 className="text-2xl md:text-3xl font-black mb-2">Already Read Our Free Articles?</h3>
+              <p className="text-gray-300 text-lg mb-1">
+                Join The War Room for $3 and get 24/7 Bible radio + the full tactical library.
+              </p>
+              <p className="text-sm text-gray-400">
+                12,793+ Substack readers already joined. This week only: get "The Uncomfortable Christ" free.
+              </p>
+            </div>
+            <Link
+              href="/gate-pass"
+              className="bg-amber-500 hover:bg-amber-400 text-black font-black px-8 py-4 rounded-lg transition-colors whitespace-nowrap shadow-lg shadow-amber-500/30"
+            >
+              Join for $3 →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Secondary Options Section */}
       <section className="relative z-10 px-6 py-16 border-t border-white/10">
         <div className="max-w-6xl mx-auto">
@@ -226,9 +252,26 @@ export default function HomePage() {
             <h2 className="text-2xl font-black mb-3">Need Something Specific?</h2>
             <p className="text-gray-400">Most people start with the War Room. But if you're looking for advanced training...</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
-            {/* Option 1: Not Sure Where to Start */}
+            {/* Option 1: See the Roadmap */}
+            <Link
+              href="/start-here-roadmap"
+              className="group relative bg-gradient-to-b from-amber-950/30 to-slate-950 border-2 border-amber-500/30 rounded-xl p-6 hover:border-amber-500 transition-all duration-300"
+            >
+              <div className="text-3xl mb-3">🧭</div>
+              <h3 className="text-xl font-black mb-2 text-amber-500 group-hover:text-amber-400 transition-colors">
+                See The Full Roadmap
+              </h3>
+              <p className="text-sm text-gray-400 leading-relaxed mb-4">
+                Your complete step-by-step path from free resources to becoming the biblical man you're called to be.
+              </p>
+              <div className="text-sm text-amber-500 font-semibold group-hover:translate-x-1 transition-transform inline-block">
+                View Roadmap →
+              </div>
+            </Link>
+
+            {/* Option 2: Take Quiz */}
             <Link
               href="/start-here"
               className="group relative bg-gradient-to-b from-slate-900 to-slate-950 border border-white/20 rounded-xl p-6 hover:border-white/40 transition-all duration-300"
@@ -241,21 +284,21 @@ export default function HomePage() {
                 Take 30 seconds to figure out what kind of man you are and what you actually need right now.
               </p>
               <div className="text-sm text-amber-500 font-semibold group-hover:translate-x-1 transition-transform inline-block">
-                Find Your Path →
+                Take Quiz →
               </div>
             </Link>
 
-            {/* Option 2: Premium Products */}
+            {/* Option 3: Premium Products */}
             <Link
               href="/armory"
               className="group relative bg-gradient-to-b from-slate-900 to-slate-950 border border-white/20 rounded-xl p-6 hover:border-orange-500/50 transition-all duration-300"
             >
               <div className="text-3xl mb-3">🗡️</div>
               <h3 className="text-xl font-black mb-2 group-hover:text-orange-500 transition-colors">
-                Need Specific Training?
+                Browse Premium Training
               </h3>
               <p className="text-sm text-gray-400 leading-relaxed mb-4">
-                Browse premium courses and resources for fathers, warriors, and serious students of Scripture.
+                Deep-dive courses for fathers, warriors, and serious students of Scripture ($27-$297).
               </p>
               <div className="text-sm text-orange-500 font-semibold group-hover:translate-x-1 transition-transform inline-block">
                 Browse The Armory →

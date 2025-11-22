@@ -186,6 +186,20 @@ export default function GatePassPage() {
 
           </div>
 
+          {/* Bonus Offer */}
+          <div className="bg-green-500/10 border-2 border-green-500/30 rounded-2xl p-8 mb-8">
+            <div className="flex items-start gap-3 mb-3">
+              <div className="text-3xl">🎁</div>
+              <div>
+                <p className="text-green-400 font-black text-lg mb-2">LIMITED BONUS: Join This Week</p>
+                <p className="text-gray-300 text-lg leading-relaxed">
+                  Get <span className="text-green-400 font-bold">"The Uncomfortable Christ"</span> absolutely free (162+ downloads, normally sold separately). Instant delivery to your email when you join.
+                </p>
+              </div>
+            </div>
+            <p className="text-sm text-gray-500 text-center">This bonus offer expires when the week ends. Don't miss it.</p>
+          </div>
+
           <div className="bg-amber-500/10 border-2 border-amber-500/20 rounded-2xl p-8 text-center">
             <p className="text-amber-500 font-bold mb-2 uppercase text-sm tracking-wide">Lifetime Access</p>
             <p className="text-white text-lg mb-1">
