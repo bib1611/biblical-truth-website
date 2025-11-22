@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ExitIntentPopup from "@/components/ExitIntentPopup";
+import ExitIntent from "@/components/ExitIntent";
 import AIChat from "@/components/AIChat";
-import { BehavioralTracker } from "@/components/BehavioralTracker";
 import Script from "next/script";
 
 export const metadata: Metadata = {
@@ -46,9 +45,8 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="antialiased">
-        <BehavioralTracker />
         {children}
-        <ExitIntentPopup />
+        <ExitIntent />
         <AIChat />
       </body>
     </html>
