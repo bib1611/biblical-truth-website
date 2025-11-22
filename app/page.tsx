@@ -4,17 +4,25 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 export default function Home() {
+  const [isPlaying, setIsPlaying] = useState(false);
   const [showSignupWall, setShowSignupWall] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(300); // 5 minutes
-  const [timerStarted, setTimerStarted] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Final Fight Bible Radio stream URL
+  const STREAM_URL = 'http://stream.radio.co/s3ee3322e0/listen';
+
   useEffect(() => {
-    if (timerStarted && timeRemaining > 0) {
+    if (isPlaying && timeRemaining > 0) {
       timerRef.current = setInterval(() => {
         setTimeRemaining((prev) => {
           if (prev <= 1) {
             setShowSignupWall(true);
+            if (audioRef.current) {
+              audioRef.current.pause();
+            }
+            setIsPlaying(false);
             return 0;
           }
           return prev - 1;
@@ -25,13 +33,16 @@ export default function Home() {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [timerStarted, timeRemaining]);
+  }, [isPlaying, timeRemaining]);
 
-  const handleListenClick = () => {
-    if (!showSignupWall) {
-      window.open('https://tunein.com/radio/Final-Fight-Bible-Radio-s116115/', '_blank');
-      if (!timerStarted) {
-        setTimerStarted(true);
+  const togglePlay = () => {
+    if (!showSignupWall && audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        audioRef.current.play();
+        setIsPlaying(true);
       }
     }
   };
@@ -44,6 +55,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
+      {/* Hidden audio element */}
+      <audio ref={audioRef} src={STREAM_URL} />
 
       {/* Animated background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-30">
@@ -89,19 +102,38 @@ export default function Home() {
                       <p className="text-gray-400">24/7 Uncompromising Biblical Teaching</p>
                     </div>
 
-                    {/* Listen Button */}
+                    {/* Play/Pause Button */}
                     <button
-                      onClick={handleListenClick}
+                      onClick={togglePlay}
                       className="w-full bg-gradient-to-br from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-black font-black text-xl py-8 rounded-xl transition-all transform hover:scale-[1.02] shadow-2xl mb-6 flex items-center justify-center gap-4"
                     >
-                      <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                      LISTEN LIVE NOW
+                      {isPlaying ? (
+                        <>
+                          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                          </svg>
+                          PAUSE RADIO
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                          LISTEN LIVE NOW
+                        </>
+                      )}
                     </button>
 
+                    {/* Live Indicator */}
+                    {isPlaying && (
+                      <div className="flex items-center justify-center gap-2 mb-4">
+                        <div className="w-3 h-3 bg-red-600 rounded-full animate-pulse"></div>
+                        <span className="text-red-500 text-sm font-bold">STREAMING LIVE</span>
+                      </div>
+                    )}
+
                     {/* Timer */}
-                    {timerStarted && (
+                    {isPlaying && (
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span className="text-gray-400">Free Preview Time Remaining</span>
@@ -113,7 +145,6 @@ export default function Home() {
                             style={{ width: `${(timeRemaining / 300) * 100}%` }}
                           ></div>
                         </div>
-                        <p className="text-gray-500 text-xs text-center">Radio opens in new tab</p>
                       </div>
                     )}
                   </div>
