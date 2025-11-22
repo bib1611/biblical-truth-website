@@ -20,18 +20,9 @@ export default function LoginPage() {
 
         // Simulate API call
         setTimeout(() => {
-            const validEmails = ['admin@biblicalman.com', 'adam@thebiblicalmantruth.com'];
-            const cleanEmail = email.trim().toLowerCase();
             const cleanPassword = password.trim();
 
-            console.log('Attempting login with:', cleanEmail);
-
-            if (!validEmails.includes(cleanEmail)) {
-                setError('Email not found. Please use adam@thebiblicalmantruth.com');
-                setIsLoading(false);
-                return;
-            }
-
+            // Allow any email, just check password for now (Simple Shared Password Auth)
             if (cleanPassword !== 'Acts29!' && cleanPassword !== 'admin') {
                 setError('Incorrect password.');
                 setIsLoading(false);

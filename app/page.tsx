@@ -1,180 +1,160 @@
-import Navigation from '@/components/Navigation';
 import Link from 'next/link';
 
 export default function Home() {
   return (
-    <>
-      <Navigation />
+    <main className="min-h-screen bg-black text-white font-sans selection:bg-[#FFD700] selection:text-black">
+      {/* Top Bar */}
+      <div className="w-full border-b border-[#222] bg-[#0a0a0a]">
+        <div className="max-w-4xl mx-auto px-6 py-4 flex justify-end">
+          <Link
+            href="/login"
+            className="text-sm font-bold text-[#666] hover:text-white transition-colors flex items-center gap-2"
+          >
+            MEMBER LOGIN <span className="text-[#FFD700]">→</span>
+          </Link>
+        </div>
+      </div>
 
-      {/* Hero - Aggressive */}
-      <section className="min-h-[85vh] flex items-center bg-black pt-20 pb-16">
-        <div className="max-w-6xl mx-auto px-6 w-full">
-          <div className="max-w-4xl">
-            <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-[1.1] tracking-tight">
-              YOUR CHURCH IS<br/>
-              <span className="bg-gradient-to-r from-[#ff6b00] to-[#ff8533] bg-clip-text text-transparent">LYING TO YOU</span>
-            </h1>
-            <p className="text-2xl md:text-3xl text-[#ccc] mb-8 leading-tight max-w-3xl font-medium">
-              Comfortable Christianity created weak men. The Bible demands warriors.
+      {/* Hero Section */}
+      <section className="pt-20 pb-16 md:pt-32 md:pb-24">
+        <div className="max-w-3xl mx-auto px-6">
+          <h1 className="text-4xl md:text-6xl font-black leading-[1.1] mb-8 tracking-tight">
+            "I got kicked out of Bible school for preaching what the King James Bible actually says about manhood."
+          </h1>
+
+          <p className="text-xl md:text-2xl text-[#888] font-medium leading-relaxed mb-12">
+            They wanted me to be "nice." They wanted me to compromise. I chose to tell the truth instead.
+          </p>
+
+          <div className="prose prose-invert prose-lg text-[#ccc]">
+            <p className="mb-6">
+              <strong className="text-white">Dear Christian Man,</strong>
             </p>
-            <p className="text-lg text-[#888] mb-12 max-w-2xl">
-              320,000+ men downloaded the truth. Your pastor won't teach this.
+            <p className="mb-6">
+              If you look around your church and feel like something is missing... if you're tired of "soft" sermons that sound more like therapy than theology... if you're wondering where the men have gone...
+            </p>
+            <p className="mb-8">
+              <span className="text-white font-bold border-b-2 border-[#FFD700]">You are not alone.</span>
+            </p>
+            <p className="mb-6">
+              I'm a preacher with calluses. I learned biblical truth the hard way—through 22 years of marriage, raising children, working with my hands, and refusing to compromise when the cost was high.
+            </p>
+            <p className="mb-8">
+              The modern church has been feminized. It tells men to be passive. To "share their feelings" instead of leading their families. To apologize for their God-given authority.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/vault" className="btn-hostile text-center px-10 py-5 text-lg font-bold">
-                GET THE VAULT - $365
-              </Link>
-              <Link href="#products" className="btn-secondary text-center px-10 py-5 text-lg">
-                See All Products
-              </Link>
+            <div className="bg-[#111] border-l-4 border-[#DC143C] p-6 my-8">
+              <p className="text-white font-bold mb-4">The result?</p>
+              <ul className="space-y-3 text-[#999] list-none pl-0">
+                <li className="flex items-start gap-3">
+                  <span className="text-[#DC143C]">❌</span>
+                  Men who abdicate their role as spiritual leaders.
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#DC143C]">❌</span>
+                  Wives who are forced to lead because their husbands won't.
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#DC143C]">❌</span>
+                  Children who grow up without a strong example of biblical masculinity.
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Value Ladder Strip */}
-      <section className="py-12 bg-gradient-to-r from-[#ff6b00] to-[#ff8533]">
-        <div className="max-w-5xl mx-auto px-6 text-center">
-          <p className="text-black text-xl md:text-2xl font-bold mb-4">
-            Free Guide → $5/month Substack → $365 Vault
+      {/* The Hub Section */}
+      <section className="py-20 bg-[#0a0a0a] border-y border-[#222]">
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-black mb-6">It's Time to Stop Apologizing.</h2>
+          <p className="text-lg text-[#888] mb-12">
+            The Biblical Man Hub is not for everyone. It is a command center for men who are done with games. Men who want the raw, undiluted truth of Scripture.
           </p>
-          <p className="text-black/80 text-lg">
-            Join 20,000+ men rejecting comfortable Christianity
+
+          <div className="grid sm:grid-cols-2 gap-6 mb-12">
+            <div className="bg-black border border-[#222] p-6 rounded-lg">
+              <div className="text-2xl mb-3">⚔️</div>
+              <h3 className="text-xl font-bold text-white mb-2">The War Room</h3>
+              <p className="text-[#666] text-sm">Deep KJV Bible study tools to sharpen your sword.</p>
+            </div>
+            <div className="bg-black border border-[#222] p-6 rounded-lg">
+              <div className="text-2xl mb-3">📻</div>
+              <h3 className="text-xl font-bold text-white mb-2">King's Radio</h3>
+              <p className="text-[#666] text-sm">24/7 streaming of uncompromising biblical teaching.</p>
+            </div>
+            <div className="bg-black border border-[#222] p-6 rounded-lg">
+              <div className="text-2xl mb-3">🧠</div>
+              <h3 className="text-xl font-bold text-white mb-2">Intel Articles</h3>
+              <p className="text-[#666] text-sm">Tactical guides on marriage, fatherhood, and leadership.</p>
+            </div>
+            <div className="bg-black border border-[#222] p-6 rounded-lg">
+              <div className="text-2xl mb-3">🛡️</div>
+              <h3 className="text-xl font-bold text-white mb-2">The Armory</h3>
+              <p className="text-[#666] text-sm">Resources to equip you for the spiritual battle.</p>
+            </div>
+          </div>
+
+          <p className="text-lg text-white font-medium">
+            I am inviting you to join 20,000+ men who have decided to stop being passive and start leading.
           </p>
         </div>
       </section>
 
-      {/* Products - Modern Pricing */}
-      <section id="products" className="py-24 bg-black">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Choose Your Level</h2>
-            <p className="text-[#888] text-xl">Start free. Go deeper. Transform completely.</p>
+      {/* CTA Section */}
+      <section className="py-24 bg-gradient-to-b from-black to-[#111]">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <div className="inline-block bg-[#FFD700] text-black text-xs font-black px-3 py-1 rounded mb-6">
+            LIMITED TIME OFFER
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Vault */}
-            <div className="bg-gradient-to-b from-[#ff6b00]/10 to-transparent border-2 border-[#ff6b00] p-8 rounded-xl relative">
-              <div className="absolute -top-3 left-6 bg-[#ff6b00] text-black px-3 py-1 rounded-full text-xs font-bold">
-                BEST VALUE
-              </div>
-              <h3 className="text-2xl font-bold mb-2 mt-4">The Vault</h3>
-              <div className="flex items-baseline gap-2 mb-6">
-                <span className="text-5xl font-bold">$365</span>
-                <span className="text-[#666]">one-time</span>
-              </div>
-              <p className="text-[#999] mb-8 leading-relaxed">
-                Everything. Lifetime access to all guides, audio content, and community.
-              </p>
-              <ul className="space-y-3 mb-8">
-                {['15+ Complete Guides', 'Exclusive Audio', 'Private Community', 'Lifetime Updates', 'New Content Monthly'].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-[#999]">
-                    <svg className="w-5 h-5 text-[#ff6b00] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/vault" className="btn-hostile w-full text-center block">
-                Get Access
-              </Link>
-            </div>
+          <h2 className="text-4xl md:text-5xl font-black mb-6 text-white">
+            Get Full Access to<br />The Biblical Man Hub
+          </h2>
 
-            {/* Substack */}
-            <div className="bg-[#111] border border-[#222] p-8 rounded-xl">
-              <h3 className="text-2xl font-bold mb-2">Substack</h3>
-              <div className="flex items-baseline gap-2 mb-6">
-                <span className="text-5xl font-bold">$5</span>
-                <span className="text-[#666]">/month</span>
-              </div>
-              <p className="text-[#999] mb-8 leading-relaxed">
-                Weekly deep dives. Cancel anytime.
-              </p>
-              <ul className="space-y-3 mb-8 text-sm text-[#999]">
-                <li>• 2-3 articles per week</li>
-                <li>• Member-only posts</li>
-                <li>• Full archive access</li>
-                <li>• Community discussion</li>
-              </ul>
-              <a href="https://biblicalman.substack.com" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full text-center block">
-                Subscribe
-              </a>
-            </div>
+          <p className="text-xl text-[#888] mb-10 max-w-xl mx-auto">
+            Access all resources, the War Room, King's Radio, Intel Articles, and The Armory for just <span className="text-white font-bold underline decoration-[#FFD700]">$3</span>.
+          </p>
 
-            {/* Guides */}
-            <div className="bg-[#111] border border-[#222] p-8 rounded-xl hover:border-[#333] transition-colors">
-              <h3 className="text-2xl font-bold mb-2">Guides</h3>
-              <div className="flex items-baseline gap-2 mb-6">
-                <span className="text-5xl font-bold">$15</span>
-                <span className="text-[#666]">- $60</span>
-              </div>
-              <p className="text-[#999] mb-8 leading-relaxed">
-                Pick your battle. Targeted transformation.
-              </p>
-              <ul className="space-y-3 mb-8 text-sm text-[#999]">
-                <li>• Biblical Masculinity</li>
-                <li>• Marriage & Authority</li>
-                <li>• Sexual Purity</li>
-                <li>• Spiritual Warfare</li>
-              </ul>
-              <Link href="/products" className="btn-secondary w-full text-center block">
-                Browse All
-              </Link>
-            </div>
+          <div className="bg-[#111] border border-[#333] p-8 rounded-2xl max-w-md mx-auto mb-12">
+            <ul className="text-left space-y-4 mb-8">
+              <li className="flex items-center gap-3 text-[#ccc]">
+                <svg className="w-5 h-5 text-[#FFD700]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                One-time payment
+              </li>
+              <li className="flex items-center gap-3 text-[#ccc]">
+                <svg className="w-5 h-5 text-[#FFD700]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                Lifetime access
+              </li>
+              <li className="flex items-center gap-3 text-[#ccc]">
+                <svg className="w-5 h-5 text-[#FFD700]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                Instant email instructions
+              </li>
+            </ul>
+
+            <a
+              href="https://buy.stripe.com/3cIaEYgbC1uh5I45VIcMM26"
+              className="block w-full bg-[#FFD700] hover:bg-[#ffe44d] text-black font-black text-xl py-5 rounded-lg transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(255,215,0,0.3)]"
+            >
+              GET ACCESS NOW ($3)
+            </a>
+            <p className="text-xs text-[#666] mt-4">
+              Secure payment via Stripe. Instant access.
+            </p>
           </div>
-        </div>
-      </section>
 
-      {/* Free Guide CTA */}
-      <section id="free-guide" className="py-20 bg-gradient-to-br from-[#ff6b00] to-[#ff8533]">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-black">Start With The Truth</h2>
-          <p className="text-2xl mb-3 text-black/90 font-semibold">
-            "Satan's 5 Deadliest Lies About Biblical Manhood"
-          </p>
-          <p className="mb-10 text-black/70 text-lg">
-            320,000+ downloads. Free. No credit card.
-          </p>
-
-          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="your@email.com"
-              className="flex-1 px-6 py-4 bg-white/90 backdrop-blur text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-black/20"
-              required
-            />
-            <button type="submit" className="px-8 py-4 bg-black text-white font-semibold rounded-lg hover:bg-black/90 transition-all">
-              Get Guide
-            </button>
-          </form>
-
-          <p className="text-sm text-black/60 mt-6">
-            No spam. Unsubscribe anytime.
-          </p>
+          <div className="text-[#666] text-sm">
+            Already a member? <Link href="/login" className="text-[#FFD700] hover:underline">Login here</Link>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-black border-t border-[#222] py-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
-            <div>
-              <p className="font-bold text-lg mb-2">THE BIBLICAL MAN</p>
-              <p className="text-sm text-[#666]">Uncomfortable truth for comfortable Christians</p>
-            </div>
-            <div className="flex gap-8 text-sm">
-              <a href="https://x.com/biblicalman" target="_blank" rel="noopener noreferrer" className="text-[#666] hover:text-white transition-colors">Twitter</a>
-              <a href="https://biblicalman.substack.com" target="_blank" rel="noopener noreferrer" className="text-[#666] hover:text-white transition-colors">Substack</a>
-              <a href="https://biblicalman.gumroad.com" target="_blank" rel="noopener noreferrer" className="text-[#666] hover:text-white transition-colors">Gumroad</a>
-            </div>
-          </div>
-          <div className="text-center text-sm text-[#666] border-t border-[#222] pt-8">
-            © 2024 The Biblical Man
-          </div>
-        </div>
+      <footer className="py-12 border-t border-[#222] bg-black text-center">
+        <p className="text-[#444] text-sm">
+          © 2024 The Biblical Man. Uncomfortable truth for comfortable Christians.
+        </p>
       </footer>
-    </>
+    </main>
   );
 }

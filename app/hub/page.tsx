@@ -1,68 +1,65 @@
+import Link from 'next/link';
+
 export default function HubPage() {
+    const sections = [
+        {
+            title: "KING'S RADIO",
+            description: "24/7 streaming of uncompromising biblical teaching.",
+            href: "/hub/radio",
+            icon: (
+                <svg className="w-8 h-8 text-[#FFD700]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                </svg>
+            ),
+            color: "border-[#FFD700]"
+        },
+        {
+            title: "THE LIBRARY",
+            description: "Tactical guides on marriage, fatherhood, and leadership.",
+            href: "/hub/library",
+            icon: (
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+            ),
+            color: "border-white"
+        },
+        {
+            title: "COMMUNITY",
+            description: "Connect with other men in the War Room.",
+            href: "/hub/community",
+            icon: (
+                <svg className="w-8 h-8 text-[#DC143C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+            ),
+            color: "border-[#DC143C]"
+        }
+    ];
+
     return (
         <>
             <header className="mb-12">
                 <h1 className="text-4xl font-black text-white mb-2">WAR ROOM</h1>
-                <p className="text-[#666]">Welcome back, Warrior.</p>
+                <p className="text-[#666]">Command Center</p>
             </header>
 
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
-                {/* Stat Cards */}
-                <div className="bg-[#111] border border-[#222] p-6 rounded-xl">
-                    <div className="text-[#666] text-xs font-bold uppercase mb-2">Current Streak</div>
-                    <div className="text-3xl font-black text-[#FFD700]">12 DAYS</div>
-                </div>
-                <div className="bg-[#111] border border-[#222] p-6 rounded-xl">
-                    <div className="text-[#666] text-xs font-bold uppercase mb-2">Modules Completed</div>
-                    <div className="text-3xl font-black text-white">4/15</div>
-                </div>
-                <div className="bg-[#111] border border-[#222] p-6 rounded-xl">
-                    <div className="text-[#666] text-xs font-bold uppercase mb-2">Next Live Call</div>
-                    <div className="text-3xl font-black text-[#DC143C]">THU 8PM</div>
-                </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-                {/* Continue Learning */}
-                <div className="bg-[#111] border border-[#222] rounded-xl overflow-hidden">
-                    <div className="p-6 border-b border-[#222] flex justify-between items-center">
-                        <h3 className="font-bold text-white">CONTINUE LEARNING</h3>
-                        <span className="text-xs bg-[#FFD700] text-black px-2 py-1 rounded font-bold">IN PROGRESS</span>
-                    </div>
-                    <div className="p-6">
-                        <h4 className="text-xl font-bold text-white mb-2">The Authority Problem</h4>
-                        <p className="text-[#888] text-sm mb-6">Module 3: Leading Without Tyranny</p>
-
-                        <div className="w-full bg-[#222] h-2 rounded-full mb-6">
-                            <div className="bg-[#FFD700] h-2 rounded-full w-[35%]"></div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {sections.map((section) => (
+                    <Link
+                        key={section.title}
+                        href={section.href}
+                        className={`bg-[#111] border ${section.color} p-8 rounded-xl hover:bg-[#1a1a1a] transition-all group`}
+                    >
+                        <div className="mb-6 group-transform group-hover:scale-110 transition-transform duration-300">
+                            {section.icon}
                         </div>
-
-                        <button className="w-full bg-white text-black font-bold py-3 rounded hover:bg-[#ccc] transition-colors">
-                            RESUME MODULE
-                        </button>
-                    </div>
-                </div>
-
-                {/* Latest Radio */}
-                <div className="bg-[#111] border border-[#222] rounded-xl overflow-hidden">
-                    <div className="p-6 border-b border-[#222] flex justify-between items-center">
-                        <h3 className="font-bold text-white">LATEST RADIO</h3>
-                        <span className="text-xs bg-[#DC143C] text-white px-2 py-1 rounded font-bold">NEW</span>
-                    </div>
-                    <div className="p-6">
-                        <h4 className="text-xl font-bold text-white mb-2">Ep. 45: Why Your Pastor is Weak</h4>
-                        <p className="text-[#888] text-sm mb-6">Unfiltered discussion on the state of the modern pulpit.</p>
-
-                        <div className="flex items-center gap-4">
-                            <button className="flex-1 bg-[#FFD700] text-black font-bold py-3 rounded hover:bg-[#e6c200] transition-colors flex items-center justify-center gap-2">
-                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M8 5v14l11-7z" />
-                                </svg>
-                                LISTEN NOW
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                        <h3 className="text-xl font-black text-white mb-3">{section.title}</h3>
+                        <p className="text-[#888] text-sm leading-relaxed">
+                            {section.description}
+                        </p>
+                    </Link>
+                ))}
             </div>
         </>
     );
