@@ -18,13 +18,17 @@ export default function LoginPage() {
         setIsLoading(true);
         setError('');
 
-        // Simulate API call
-        setTimeout(() => {
-            const cleanPassword = password.trim();
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
 
-            // Allow any email, just check password for now (Simple Shared Password Auth)
-            if (cleanPassword !== 'Acts29!' && cleanPassword !== 'admin') {
-                setError('Incorrect password.');
+            const data = await res.json();
+
+            if (!res.ok) {
+                setError(data.error || 'Login failed');
                 setIsLoading(false);
                 return;
             }
@@ -33,7 +37,10 @@ export default function LoginPage() {
             localStorage.setItem('biblical_user', 'true');
             document.cookie = "auth=true; path=/";
             router.push('/hub');
-        }, 1000);
+        } catch (err) {
+            setError('Something went wrong. Please try again.');
+            setIsLoading(false);
+        }
     };
 
     return (
