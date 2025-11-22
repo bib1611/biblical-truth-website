@@ -14,15 +14,29 @@ export default function HubLayout({
     const [isAuthorized, setIsAuthorized] = useState(false);
 
     useEffect(() => {
-        // Check for auth
-        const isAuth = localStorage.getItem('biblical_user') || document.cookie.includes('auth=true');
+        // Helper function to read cookie
+        const getCookie = (name: string) => {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop()?.split(';').shift();
+            return null;
+        };
+
+        // Check for auth with multiple methods
+        const hasLocalStorage = localStorage.getItem('biblical_user') === 'true';
+        const hasCookie = getCookie('auth') === 'true';
+        const isAuth = hasLocalStorage || hasCookie;
+
+        console.log('Auth Check:', { hasLocalStorage, hasCookie, isAuth, pathname });
 
         if (!isAuth) {
+            console.log('No auth found, redirecting to login');
             router.push('/login');
         } else {
+            console.log('Auth found, setting authorized');
             setIsAuthorized(true);
         }
-    }, [router]);
+    }, [router, pathname]);
 
     if (!isAuthorized) {
         return null; // Or a loading spinner
