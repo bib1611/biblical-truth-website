@@ -8,12 +8,30 @@ export default function Home() {
   const [showSignupWall, setShowSignupWall] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(300); // 5 minutes
   const [volume, setVolume] = useState(0.8);
-  const [nowPlaying, setNowPlaying] = useState('Final Fight Bible Radio');
+  const [nowPlaying, setNowPlaying] = useState('Loading...');
   const audioRef = useRef<HTMLAudioElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const metadataIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Official FFBR stream URL (128kbps MP3)
   const STREAM_URL = 'https://c13.radioboss.fm:8639/stream';
+
+  // Fetch now playing info
+  const fetchNowPlaying = async () => {
+    try {
+      // Try to fetch from a proxy endpoint that handles CORS
+      const response = await fetch('/api/now-playing');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.track) {
+          setNowPlaying(data.track);
+        }
+      }
+    } catch (error) {
+      // Fallback to generic message if API fails
+      setNowPlaying('Live Biblical Teaching');
+    }
+  };
 
   useEffect(() => {
     if (isPlaying && timeRemaining > 0) {
@@ -42,6 +60,22 @@ export default function Home() {
       audioRef.current.volume = volume;
     }
   }, [volume]);
+
+  useEffect(() => {
+    // Fetch initial now playing info
+    fetchNowPlaying();
+
+    // Update every 10 seconds
+    metadataIntervalRef.current = setInterval(() => {
+      fetchNowPlaying();
+    }, 10000);
+
+    return () => {
+      if (metadataIntervalRef.current) {
+        clearInterval(metadataIntervalRef.current);
+      }
+    };
+  }, []);
 
   const togglePlay = async () => {
     if (audioRef.current) {
