@@ -10,8 +10,8 @@ export default function Home() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Official FFBR stream URL from their website
-  const STREAM_URL = 'https://streams.radio.co/sd7d07f6a0/listen';
+  // Official FFBR stream URL (128kbps MP3)
+  const STREAM_URL = 'https://c13.radioboss.fm:8639/stream';
 
   useEffect(() => {
     if (isPlaying && timeRemaining > 0) {
