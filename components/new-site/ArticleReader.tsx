@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BlogPost, ArticleInsight } from './types';
-import { generateArticleInsight } from '../services/geminiService';
+import { generateArticleInsight } from './geminiService';
 
 interface ArticleReaderProps {
   post: BlogPost;

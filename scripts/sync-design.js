@@ -36,6 +36,7 @@ async function sync() {
         run(`cp ${TEMP_DIR}/constants.ts ${TARGET_DIR}/`);
         run(`cp ${TEMP_DIR}/types.ts ${TARGET_DIR}/`);
         run(`cp ${TEMP_DIR}/services/rssService.ts ${TARGET_DIR}/rssService.ts`);
+        run(`cp ${TEMP_DIR}/services/geminiService.ts ${TARGET_DIR}/geminiService.ts`);
 
         // 6. Fix Imports
         console.log('🔧 Fixing imports...');
@@ -50,6 +51,10 @@ async function sync() {
             content = content.replace(/from ['"]\.\.\/types['"]/g, 'from "./types"');
             // Replace ../constants with ./constants
             content = content.replace(/from ['"]\.\.\/constants['"]/g, 'from "./constants"');
+            // Replace ../services/geminiService with ./geminiService
+            content = content.replace(/from ['"]\.\.\/services\/geminiService['"]/g, 'from "./geminiService"');
+            // Replace ../services/rssService with ./rssService
+            content = content.replace(/from ['"]\.\.\/services\/rssService['"]/g, 'from "./rssService"');
 
             fs.writeFileSync(filePath, content);
         });

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { getScriptureInsight, generateScriptureAudio } from '../services/geminiService';
+import { getScriptureInsight, generateScriptureAudio } from './geminiService';
 import { ScriptureResponse } from './types';
 
 // --- Audio Utilities ---
