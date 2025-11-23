@@ -1,5 +1,5 @@
 import { GoogleGenAI, Type, Modality } from "@google/genai";
-import { ScriptureResponse, ArticleInsight } from '../types';
+import { ScriptureResponse, ArticleInsight } from './types';
 
 const apiKey = process.env.API_KEY || '';
 // Initialize conditionally to prevent crashes if key is missing during dev, 
@@ -13,7 +13,7 @@ export const getScriptureInsight = async (topic: string): Promise<ScriptureRespo
   }
 
   const modelId = "gemini-2.5-flash";
-  
+
   const prompt = `
     You are a wise spiritual mentor representing "The Biblical Man". 
     The user is asking for guidance or thinking about this topic: "${topic}".
