@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MemberProfile, DailyTask } from './types';
 
 interface PrayerRequest {
@@ -254,8 +254,8 @@ const MembersArea: React.FC = () => {
                       key={task.id}
                       onClick={() => toggleTask(task.id)}
                       className={`w-full flex items-center p-3 rounded-lg border transition-all ${task.completed
-                          ? 'bg-stone-50 border-stone-200 opacity-60'
-                          : 'bg-white border-stone-300 hover:border-stone-900 shadow-sm'
+                        ? 'bg-stone-50 border-stone-200 opacity-60'
+                        : 'bg-white border-stone-300 hover:border-stone-900 shadow-sm'
                         }`}
                     >
                       <div className={`w-6 h-6 rounded border flex items-center justify-center mr-4 transition-colors ${task.completed ? 'bg-stone-900 border-stone-900' : 'bg-white border-stone-300'
@@ -362,8 +362,8 @@ const MembersArea: React.FC = () => {
                         <button
                           onClick={() => handlePray(req.id)}
                           className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${req.hasPrayed
-                              ? 'bg-stone-900 text-white shadow-sm'
-                              : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-400 hover:text-stone-900'
+                            ? 'bg-stone-900 text-white shadow-sm'
+                            : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-400 hover:text-stone-900'
                             }`}
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3">
