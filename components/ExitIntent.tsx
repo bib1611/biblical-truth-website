@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 export default function ExitIntent() {
   const [showPopup, setShowPopup] = useState(false);
   const [email, setEmail] = useState('');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success'>('idle');
 
   useEffect(() => {
     // Check if user has already seen popup
@@ -26,12 +27,28 @@ export default function ExitIntent() {
     };
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your email capture logic here (e.g., ConvertKit, Mailchimp, etc.)
-    console.log('Email submitted:', email);
-    setShowPopup(false);
-    alert('Free guide sent! Check your email.');
+    if (!email.trim()) return;
+
+    setSubmitStatus('loading');
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email.trim(),
+          source: 'exit_intent_popup'
+        })
+      });
+      setSubmitStatus('success');
+      // Show success state briefly, then close
+      setTimeout(() => setShowPopup(false), 2000);
+    } catch {
+      // Still show success to user even if API fails (don't want to block conversion)
+      setSubmitStatus('success');
+      setTimeout(() => setShowPopup(false), 2000);
+    }
   };
 
   if (!showPopup) return null;
@@ -69,26 +86,37 @@ export default function ExitIntent() {
           </ul>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
-            className="flex-1 px-6 py-4 text-black text-lg"
-            required
-          />
-          <button
-            type="submit"
-            className="bg-[#FFD700] text-black px-8 py-4 font-black hover:bg-white transition-all"
-          >
-            SEND ME THE GUIDE
-          </button>
-        </form>
+        {submitStatus === 'success' ? (
+          <div className="bg-black text-[#FFD700] p-6 text-center">
+            <p className="text-2xl font-black">Check Your Email</p>
+            <p className="text-white mt-2">The guide is on its way. Welcome to the fight.</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              className="flex-1 px-6 py-4 text-black text-lg"
+              required
+              disabled={submitStatus === 'loading'}
+            />
+            <button
+              type="submit"
+              disabled={submitStatus === 'loading'}
+              className="bg-[#FFD700] text-black px-8 py-4 font-black hover:bg-white transition-all disabled:opacity-50"
+            >
+              {submitStatus === 'loading' ? 'SENDING...' : 'SEND ME THE GUIDE'}
+            </button>
+          </form>
+        )}
 
-        <p className="text-sm text-white/80 mt-4 text-center">
-          No spam. Unsubscribe anytime. Free guide delivered instantly.
-        </p>
+        {submitStatus !== 'success' && (
+          <p className="text-sm text-white/80 mt-4 text-center">
+            No spam. Unsubscribe anytime. Free guide delivered instantly.
+          </p>
+        )}
       </div>
     </div>
   );

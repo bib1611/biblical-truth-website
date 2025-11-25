@@ -123,6 +123,8 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         {children}
+        <ExitIntent />
+        <AIChat />
       </body>
     </html>
   );

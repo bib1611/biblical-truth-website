@@ -9,6 +9,7 @@ interface Message {
 
 export default function AIChat() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -26,6 +27,24 @@ export default function AIChat() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Suppress chat button for first 3 minutes on new visits
+  useEffect(() => {
+    const hasVisitedBefore = localStorage.getItem('biblical_chat_enabled');
+
+    if (hasVisitedBefore === 'true') {
+      // Returning visitor - show chat immediately
+      setIsVisible(true);
+    } else {
+      // New visitor - wait 3 minutes before showing chat
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+        localStorage.setItem('biblical_chat_enabled', 'true');
+      }, 3 * 60 * 1000); // 3 minutes
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,10 +82,13 @@ export default function AIChat() {
     }
   };
 
+  // Don't render anything if not visible yet
+  if (!isVisible && !isOpen) return null;
+
   return (
     <>
       {/* Chat Button */}
-      {!isOpen && (
+      {!isOpen && isVisible && (
         <button
           onClick={() => setIsOpen(true)}
           className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-[#ff6b00] to-[#ff8533] text-white px-6 py-4 rounded-full shadow-2xl hover:shadow-[#ff6b00]/50 transition-all font-semibold flex items-center gap-2 group"

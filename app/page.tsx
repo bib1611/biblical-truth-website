@@ -11,6 +11,7 @@ import MembersArea from '@/components/new-site/MembersArea';
 import AboutSection from '@/components/new-site/AboutSection';
 import LoginModal from '@/components/new-site/LoginModal';
 import ArticleReader from '@/components/new-site/ArticleReader';
+import TestimonialsSection from '@/components/new-site/TestimonialsSection';
 import { NavSection, BlogPost } from '@/components/new-site/types';
 import { BLOG_POSTS, PRODUCTS } from '@/components/new-site/constants';
 import { fetchLatestPosts } from '@/components/new-site/rssService';
@@ -25,6 +26,10 @@ export default function Page() {
     // Reader State
     const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
     const [posts, setPosts] = useState<BlogPost[]>(BLOG_POSTS);
+
+    // Email capture state
+    const [subscribeEmail, setSubscribeEmail] = useState('');
+    const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
     // Refs for scrolling
     const heroRef = useRef<HTMLDivElement>(null);
@@ -93,6 +98,32 @@ export default function Page() {
         scrollToSection(NavSection.HOME);
     };
 
+    const handleSubscribe = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!subscribeEmail.trim()) return;
+
+        setSubscribeStatus('loading');
+        try {
+            const response = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: subscribeEmail,
+                    source: 'homepage_congregation'
+                })
+            });
+
+            if (response.ok) {
+                setSubscribeStatus('success');
+                setSubscribeEmail('');
+            } else {
+                setSubscribeStatus('error');
+            }
+        } catch {
+            setSubscribeStatus('error');
+        }
+    };
+
     return (
         <Layout
             activeSection={activeSection}
@@ -144,6 +175,8 @@ export default function Page() {
                         />
                     </div>
 
+                    <TestimonialsSection />
+
                     <div ref={productsRef}>
                         <ProductSection products={PRODUCTS} />
                     </div>
@@ -154,16 +187,33 @@ export default function Page() {
                             <p className="text-stone-400">
                                 Weekly reflections delivered to your inbox every Sunday morning. No noise, just substance.
                             </p>
-                            <form className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto" onSubmit={(e) => e.preventDefault()}>
-                                <input
-                                    type="email"
-                                    placeholder="your@email.com"
-                                    className="px-4 py-3 rounded-md bg-stone-800 border border-stone-700 text-white placeholder-stone-500 focus:outline-none focus:border-stone-500 w-full"
-                                />
-                                <button className="px-6 py-3 bg-white text-stone-900 font-medium rounded-md hover:bg-stone-200 transition-colors">
-                                    Subscribe
-                                </button>
-                            </form>
+                            {subscribeStatus === 'success' ? (
+                                <div className="bg-green-900/50 border border-green-700 text-green-300 px-6 py-4 rounded-md">
+                                    You&apos;re in. Check your inbox for what comes next.
+                                </div>
+                            ) : (
+                                <form className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto" onSubmit={handleSubscribe}>
+                                    <input
+                                        type="email"
+                                        value={subscribeEmail}
+                                        onChange={(e) => setSubscribeEmail(e.target.value)}
+                                        placeholder="your@email.com"
+                                        className="px-4 py-3 rounded-md bg-stone-800 border border-stone-700 text-white placeholder-stone-500 focus:outline-none focus:border-stone-500 w-full"
+                                        disabled={subscribeStatus === 'loading'}
+                                        required
+                                    />
+                                    <button
+                                        type="submit"
+                                        disabled={subscribeStatus === 'loading'}
+                                        className="px-6 py-3 bg-white text-stone-900 font-medium rounded-md hover:bg-stone-200 transition-colors disabled:opacity-50"
+                                    >
+                                        {subscribeStatus === 'loading' ? 'Joining...' : 'Subscribe'}
+                                    </button>
+                                </form>
+                            )}
+                            {subscribeStatus === 'error' && (
+                                <p className="text-red-400 text-sm">Something went wrong. Try again.</p>
+                            )}
                         </div>
                     </div>
                 </>
