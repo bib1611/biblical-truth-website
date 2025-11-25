@@ -7,6 +7,10 @@ steps:
       - 'build'
       - '--build-arg'
       - 'POSTGRES_URL=$_POSTGRES_URL'
+      - '--build-arg'
+      - 'RESEND_API_KEY=$_RESEND_API_KEY'
+      - '--build-arg'
+      - 'STRIPE_SECRET_KEY=$_STRIPE_SECRET_KEY'
       - '-t'
       - 'gcr.io/$PROJECT_ID/biblical-truth-website'
       - '.'
@@ -28,10 +32,12 @@ steps:
       - 'managed'
       - '--allow-unauthenticated'
       - '--set-env-vars'
-      - 'POSTGRES_URL=$_POSTGRES_URL'
+      - 'POSTGRES_URL=$_POSTGRES_URL,RESEND_API_KEY=$_RESEND_API_KEY,STRIPE_SECRET_KEY=$_STRIPE_SECRET_KEY'
 
 substitutions:
   _POSTGRES_URL: 'postgresql://neondb_owner:npg_pVbYwFlHX9A2@ep-green-forest-aeirjaed-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require'
+  _RESEND_API_KEY: 're_placeholder_key'
+  _STRIPE_SECRET_KEY: 'sk_placeholder_key'
 
 images:
   - 'gcr.io/$PROJECT_ID/biblical-truth-website'

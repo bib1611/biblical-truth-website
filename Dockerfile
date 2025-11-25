@@ -15,9 +15,13 @@ RUN npm ci
 FROM base AS builder
 WORKDIR /app
 
-# Re-declare build arg for this stage
+# Re-declare build args for this stage
 ARG POSTGRES_URL
+ARG RESEND_API_KEY
+ARG STRIPE_SECRET_KEY
 ENV POSTGRES_URL=$POSTGRES_URL
+ENV RESEND_API_KEY=$RESEND_API_KEY
+ENV STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
