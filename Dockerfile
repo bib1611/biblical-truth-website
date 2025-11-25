@@ -1,5 +1,8 @@
 FROM node:20-alpine AS base
 
+# Build arguments
+ARG POSTGRES_URL
+
 # Install dependencies only when needed
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
@@ -11,6 +14,11 @@ RUN npm ci
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
+
+# Re-declare build arg for this stage
+ARG POSTGRES_URL
+ENV POSTGRES_URL=$POSTGRES_URL
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 

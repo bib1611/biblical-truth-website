@@ -3,7 +3,13 @@ options:
 
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/biblical-truth-website', '.']
+    args:
+      - 'build'
+      - '--build-arg'
+      - 'POSTGRES_URL=$_POSTGRES_URL'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/biblical-truth-website'
+      - '.'
 
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/biblical-truth-website']
@@ -21,6 +27,11 @@ steps:
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'POSTGRES_URL=$_POSTGRES_URL'
+
+substitutions:
+  _POSTGRES_URL: 'postgresql://neondb_owner:npg_pVbYwFlHX9A2@ep-green-forest-aeirjaed-pooler.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require'
 
 images:
   - 'gcr.io/$PROJECT_ID/biblical-truth-website'
