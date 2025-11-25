@@ -9,6 +9,7 @@ interface Message {
 
 export default function AIChat() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -27,6 +28,24 @@ export default function AIChat() {
     scrollToBottom();
   }, [messages]);
 
+  // Suppress chat button for first 3 minutes on new visits
+  useEffect(() => {
+    const hasVisitedBefore = localStorage.getItem('biblical_chat_enabled');
+
+    if (hasVisitedBefore === 'true') {
+      // Returning visitor - show chat immediately
+      setIsVisible(true);
+    } else {
+      // New visitor - wait 3 minutes before showing chat
+      const timer = setTimeout(() => {
+        setIsVisible(true);
+        localStorage.setItem('biblical_chat_enabled', 'true');
+      }, 3 * 60 * 1000); // 3 minutes
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
@@ -34,7 +53,6 @@ export default function AIChat() {
     const userMessage = input.trim();
     setInput('');
 
-    // Add user message to state
     const newMessages: Message[] = [...messages, { role: 'user', content: userMessage }];
     setMessages(newMessages);
     setIsLoading(true);
@@ -43,14 +61,10 @@ export default function AIChat() {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: newMessages
-        })
+        body: JSON.stringify({ messages: newMessages })
       });
 
       const data = await response.json();
-
-      // Add assistant response
       setMessages([...newMessages, { role: 'assistant', content: data.message }]);
     } catch (error) {
       console.error('Chat error:', error);
@@ -63,10 +77,13 @@ export default function AIChat() {
     }
   };
 
+  // Don't render anything if not visible yet
+  if (!isVisible && !isOpen) return null;
+
   return (
     <>
       {/* Chat Button */}
-      {!isOpen && (
+      {!isOpen && isVisible && (
         <button
           onClick={() => setIsOpen(true)}
           className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-[#ff6b00] to-[#ff8533] text-white px-6 py-4 rounded-full shadow-2xl hover:shadow-[#ff6b00]/50 transition-all font-semibold flex items-center gap-2 group"
@@ -87,10 +104,7 @@ export default function AIChat() {
               <h3 className="font-bold text-white">Biblical Truth Assistant</h3>
               <p className="text-xs text-white/80">Here to help you choose your path</p>
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-white hover:text-white/80 transition-colors"
-            >
+            <button onClick={() => setIsOpen(false)} className="text-white hover:text-white/80 transition-colors">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -100,17 +114,8 @@ export default function AIChat() {
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((msg, idx) => (
-              <div
-                key={idx}
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                    msg.role === 'user'
-                      ? 'bg-gradient-to-r from-[#ff6b00] to-[#ff8533] text-white'
-                      : 'bg-[#111] text-[#fff] border border-[#222]'
-                  }`}
-                >
+              <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${msg.role === 'user' ? 'bg-gradient-to-r from-[#ff6b00] to-[#ff8533] text-white' : 'bg-[#111] text-[#fff] border border-[#222]'}`}>
                   <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
                 </div>
               </div>
