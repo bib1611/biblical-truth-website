@@ -12,20 +12,20 @@ steps:
       - '--build-arg'
       - 'STRIPE_SECRET_KEY=$_STRIPE_SECRET_KEY'
       - '-t'
-      - 'gcr.io/$PROJECT_ID/biblical-truth-website'
+      - 'gcr.io/$PROJECT_ID/biblical-man-universe'
       - '.'
 
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/biblical-truth-website']
+    args: ['push', 'gcr.io/$PROJECT_ID/biblical-man-universe']
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
       - 'run'
       - 'deploy'
-      - 'biblical-truth-website'
+      - 'biblical-man-universe'
       - '--image'
-      - 'gcr.io/$PROJECT_ID/biblical-truth-website'
+      - 'gcr.io/$PROJECT_ID/biblical-man-universe'
       - '--region'
       - 'us-central1'
       - '--platform'
@@ -40,4 +40,4 @@ substitutions:
   _STRIPE_SECRET_KEY: 'sk_placeholder_key'
 
 images:
-  - 'gcr.io/$PROJECT_ID/biblical-truth-website'
+  - 'gcr.io/$PROJECT_ID/biblical-man-universe'
