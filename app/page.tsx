@@ -11,6 +11,7 @@ import MembersArea from '@/components/new-site/MembersArea';
 import AboutSection from '@/components/new-site/AboutSection';
 import LoginModal from '@/components/new-site/LoginModal';
 import ArticleReader from '@/components/new-site/ArticleReader';
+import FeaturedGuide from '@/components/new-site/FeaturedGuide';
 import { NavSection, BlogPost } from '@/components/new-site/types';
 import { BLOG_POSTS, PRODUCTS } from '@/components/new-site/constants';
 import { fetchLatestPosts } from '@/components/new-site/rssService';
@@ -143,6 +144,8 @@ export default function Page() {
                             onReadPost={setSelectedPost}
                         />
                     </div>
+
+                    <FeaturedGuide />
 
                     <div ref={productsRef}>
                         <ProductSection products={PRODUCTS} />

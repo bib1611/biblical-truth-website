@@ -61,6 +61,15 @@ export const BLOG_POSTS: BlogPost[] = [
 
 export const PRODUCTS: Product[] = [
   {
+    id: 'wars-rumors',
+    name: "Wars and Rumors of Wars",
+    description: "A comprehensive Bible study on the Book of Revelation and Daniel's 70th Week. The spiritual hierarchy. The Nephilim bloodlines. The Antichrist's origin. The endgame prophecy most churches won't preach.",
+    price: "$25",
+    imageUrl: "/wars-rumors-cover.png",
+    cta: "Preorder Now — $25",
+    link: "https://buy.stripe.com/6oU3cw9bSlswgwKaRxc3m00"
+  },
+  {
     id: 'p1',
     name: "The Biblical Man Bundle",
     description: "The complete collection of resources to help you lead your family and community with conviction.",

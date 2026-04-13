@@ -8,7 +8,7 @@
 export type Product = {
   id: string;
   title: string;
-  category: 'fathers' | 'warriors' | 'vault';
+  category: 'fathers' | 'warriors' | 'vault' | 'eschatology';
   description: string;
   identityTagline: string; // "You're not buying X, you're buying Y"
   price: string;
@@ -17,6 +17,18 @@ export type Product = {
 };
 
 export const products: Product[] = [
+  // ========== ESCHATOLOGY / PROPHECY ==========
+  {
+    id: 'wars-rumors',
+    title: 'WARS AND RUMORS OF WARS',
+    category: 'eschatology',
+    description: "A comprehensive Bible study on the Book of Revelation and Daniel's 70th Week. The spiritual hierarchy. The Nephilim bloodlines. The Antichrist's origin. The endgame prophecy most churches won't preach.",
+    identityTagline: "You're not buying a prophecy book. You're buying the timeline your pastor is too afraid to teach because it connects Genesis 6, Daniel 2, and Revelation 12 into one terrifying thread.",
+    price: '$25',
+    gumroadUrl: 'https://buy.stripe.com/6oU3cw9bSlswgwKaRxc3m00',
+    featured: true,
+  },
+
   // ========== FOR FATHERS ==========
   {
     id: 'kkbou',
