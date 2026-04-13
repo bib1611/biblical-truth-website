@@ -67,7 +67,7 @@ export const PRODUCTS: Product[] = [
     price: "$25",
     imageUrl: "/wars-rumors-cover.png",
     cta: "Preorder Now — $25",
-    link: "https://buy.stripe.com/6oU3cw9bSlswgwKaRxc3m00"
+    link: "https://buy.stripe.com/6oU3cw9bSlsgwKaRXc00"
   },
   {
     id: 'p1',

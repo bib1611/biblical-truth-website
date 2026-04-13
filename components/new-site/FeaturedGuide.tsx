@@ -46,7 +46,7 @@ const FeaturedGuide: React.FC = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <a
-                href="https://buy.stripe.com/6oU3cw9bSlswgwKaRxc3m00"
+                href="https://buy.stripe.com/6oU3cw9bSlsgwKaRXc00"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-8 py-4 bg-amber-700 hover:bg-amber-600 text-white font-semibold rounded transition-colors duration-300 text-center"
