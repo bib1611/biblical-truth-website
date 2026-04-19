@@ -79,6 +79,16 @@ export const products: Product[] = [
 
   // ========== FOR WARRIORS ==========
   {
+    id: 'familiar-spirits',
+    title: 'FAMILIAR SPIRITS: A Field Manual for Breaking the Contracts Your Fathers Signed',
+    category: 'warriors',
+    description: "PREORDER \u2014 Verse by verse through all 17 KJV passages on familiar spirits. Names the specific doors each one identifies, maps generational transmission across David, Saul, Manasseh, Josiah, and Ahab, and gives the full bloodline prayer protocol: 7-day severance sequence, room-by-room house audit, Scripture arsenal for wife and children, emergency response protocol. Preorder price locked until release.",
+    identityTagline: "You're not buying a deliverance book. You're buying the severance language your pastor never learned because his translation erased the word for what's eating your family.",
+    price: '$25',
+    gumroadUrl: 'https://buy.stripe.com/bJe6oI73K6MQfsG0cTc3m04',
+    featured: true,
+  },
+  {
     id: 'jxmbiy',
     title: 'The Warrior Bundle',
     category: 'warriors',
