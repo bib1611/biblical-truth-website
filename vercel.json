@@ -1,13 +1,20 @@
 {
-  "buildCommand": "npm run build",
-  "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "framework": "nextjs",
-  "outputDirectory": ".next",
-  "crons": [
-    {
-      "path": "/api/cron/check-new-users",
-      "schedule": "0 */6 * * *"
-    }
-  ]
+    "buildCommand": "npm run build",
+    "devCommand": "npm run dev",
+    "installCommand": "npm install",
+    "framework": "nextjs",
+    "outputDirectory": ".next",
+    "crons": [
+          {
+                  "path": "/api/cron/check-new-users",
+                  "schedule": "0 */6 * * *"
+          }
+    ],
+    "redirects": [
+          {
+                  "source": "/free",
+                  "destination": "/free/7-day-devotional",
+                  "permanent": false
+          }
+    ]
 }
